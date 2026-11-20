@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClearDays — Your Drug-Free Migraine Relief Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --ink:#1d2340; --muted:#646b8a; --line:#e3e7f1;
+  --brand:#5b4fe0; --brand2:#22b8a6; --soft:#efedff; --soft2:#e6f8f5;
+  --warn:#d9534f; --warnbg:#fff1f0; --amber:#b7791f; --amberbg:#fff8e6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.wrap{max-width:520px;margin:0 auto;padding:16px 18px 40px;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;height:44px;margin-bottom:6px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;letter-spacing:-.3px}
+.logo svg{width:26px;height:26px}
+.back{background:none;border:none;font:inherit;color:var(--muted);font-size:15px;cursor:pointer;padding:6px 4px;visibility:hidden}
+.back.show{visibility:visible}
+.step{font-size:13px;color:var(--muted);min-width:48px;text-align:right}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .35s}
+main{flex:1}
+h1{font-size:28px;line-height:1.2;letter-spacing:-.6px;font-weight:800;margin-bottom:10px}
+h2{font-size:22px;line-height:1.3;letter-spacing:-.4px;font-weight:800;margin-bottom:6px}
+.sub{color:var(--muted);font-size:15px;line-height:1.5;margin-bottom:20px}
+.opts{display:grid;gap:10px}
+.opts.grid2{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:15px 16px;font:inherit;font-size:15.5px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left;transition:border-color .15s,background .15s,transform .1s}
+.opt:hover{border-color:#c9c3ff}
+.opt:active{transform:scale(.99)}
+.opt.sel{border-color:var(--brand);background:var(--soft)}
+.opt .em{font-size:22px;width:28px;text-align:center}
+.opt .ck{margin-left:auto;width:22px;height:22px;border-radius:6px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;font-size:13px;color:#fff}
+.opt.sel .ck{background:var(--brand);border-color:var(--brand)}
+.grid2 .opt{flex-direction:column;justify-content:center;text-align:center;padding:20px 10px}
+.grid2 .opt .em{font-size:34px;width:auto}
+.cta{display:block;width:100%;margin-top:22px;background:linear-gradient(90deg,var(--brand),#7a5cf0);color:#fff;border:none;border-radius:14px;padding:17px;font:inherit;font-size:16.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(91,79,224,.25)}
+.cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.cta.ghost{background:none;color:var(--brand);box-shadow:none;border:2px solid var(--brand)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5}
+.hero{background:linear-gradient(160deg,var(--soft),var(--soft2));border-radius:22px;padding:24px 20px;margin-bottom:22px;text-align:center}
+.hero svg{width:120px;height:120px;margin-bottom:8px}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.badge{background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.info{background:var(--card);border-radius:20px;padding:24px 20px;text-align:center;border:1px solid var(--line)}
+.info .big{font-size:52px;margin-bottom:10px}
+.info p{color:var(--muted);line-height:1.6;font-size:15px;margin-top:8px}
+.scale{display:flex;gap:8px;margin-top:8px}
+.scale .opt{flex:1;justify-content:center;padding:16px 0;font-size:18px}
+.scale-l{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px}
+.alert{background:var(--warnbg);border:1px solid #f3c4c1;border-radius:18px;padding:20px}
+.alert h2{color:var(--warn)}
+.alert ul{margin:12px 0 0 18px;line-height:1.7;font-size:14.5px}
+.loader{text-align:center;padding-top:20px}
+.ring{width:150px;height:150px;margin:10px auto 22px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;font-weight:800}
+.lsteps{text-align:left;display:grid;gap:12px;margin-top:10px}
+.lsteps div{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:15px;transition:color .3s}
+.lsteps div.done{color:var(--ink)}
+.lsteps span{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0}
+.lsteps div.done span{background:var(--brand2);border-color:var(--brand2)}
+input[type=text],input[type=email]{width:100%;font:inherit;font-size:16px;padding:16px;border-radius:14px;border:2px solid var(--line);background:#fff;margin-bottom:12px;outline:none}
+input:focus{border-color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.card h3{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--soft);color:var(--brand);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.chip.t{background:var(--soft2);color:#13897b}
+.meter{display:flex;gap:4px;margin:8px 0 4px}
+.meter i{flex:1;height:10px;border-radius:4px;background:var(--line)}
+.meter i.on{background:linear-gradient(90deg,#f6a04d,#e8664a)}
+.row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.flag{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.45}
+.flag:first-of-type{border-top:none}
+.week{border-left:3px solid var(--brand);padding:2px 0 2px 14px;margin:14px 0}
+.week h4{font-size:15px;margin-bottom:6px}
+.week ul{margin-left:18px;font-size:14px;line-height:1.65;color:#3a4062}
+.locked{position:relative}
+.locked .blur{filter:blur(4px);user-select:none;pointer-events:none}
+.locked .lockmsg{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--brand);font-size:14.5px;text-align:center}
+.warnbox{background:var(--amberbg);border:1px solid #f1d59a;color:#7a5410;border-radius:14px;padding:14px;font-size:14px;line-height:1.5;margin-bottom:14px}
+.plans{display:grid;gap:10px;margin-top:6px}
+.plan{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer}
+.plan.sel{border-color:var(--brand);background:var(--soft)}
+.plan .rad{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex-shrink:0}
+.plan.sel .rad{border:7px solid var(--brand)}
+.plan .pn{font-weight:700;font-size:15.5px}
+.plan .pd{font-size:12.5px;color:var(--muted);margin-top:2px}
+.plan .pp{margin-left:auto;text-align:right}
+.plan .pp b{font-size:20px}
+.plan .pp s{display:block;font-size:12px;color:var(--muted)}
+.plan .tag{position:absolute;top:-10px;right:14px;background:var(--brand2);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.renew{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:12px;text-align:center}
+.trust{display:grid;gap:8px;margin-top:18px;font-size:14px}
+.trust div{display:flex;gap:8px}
+.modal{position:fixed;inset:0;background:rgba(20,22,40,.5);display:none;place-items:center;padding:20px;z-index:10}
+.modal.show{display:grid}
+.modal .box{background:#fff;border-radius:20px;padding:24px;max-width:400px;text-align:center}
+.modal .box p{color:var(--muted);line-height:1.55;margin:8px 0 16px;font-size:14.5px}
+.disc{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:28px;text-align:center}
+.fade{animation:f .3s ease}
+@keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <button class="back" id="back">← Back</button>
+    <div class="logo">
+      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#5b4fe0"/><path d="M9 18c2-5 5-7 7-7s5 2 7 7" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="16" cy="21" r="2.2" fill="#22b8a6"/></svg>
+      ClearDays
+    </div>
+    <div class="step" id="stepn"></div>
+  </header>
+  <div class="bar" id="barw"><i id="bar"></i></div>
+  <main id="app"></main>
+</div>
+
+<div class="modal" id="modal"><div class="box">
+  <h2>Prototype checkout</h2>
+  <p>Payment isn't connected yet. In the live version, Razorpay (India) or Stripe (international) checkout opens here, with the auto-renewal terms shown again before payment.</p>
+  <button class="cta" onclick="document.getElementById('modal').classList.remove('show')">Got it</button>
+</div></div>
+
+<script>
+const A = {};            // answers
+let hist = [];           // screen history
+let idx = 0;
+
+const Q = [
+ {id:'age', type:'landing'},
+ {id:'gender', q:'Who is this plan for?', sub:'Migraine patterns differ between women and men, especially with hormonal triggers.', opts:[['female','Woman','👩'],['male','Man','👨'],['other','Prefer not to say','🙂']]},
+ {id:'freq', q:'How often do you get a migraine?', opts:[['rare','Less than once a month','🌤️'],['monthly','1–3 times a month','⛅'],['weekly','1–2 times a week','🌥️'],['often','3 or more times a week','🌧️']]},
+ {id:'dur', q:'How long does an attack usually last?', opts:[['short','Under 4 hours','⏱️'],['mid','4 to 24 hours','🕓'],['long','1 to 3 days','📆']]},
+ {id:'sev', q:'How strong is the pain at its worst?', opts:[['mild','Mild — I can keep going','🙂'],['mod','Moderate — I slow down a lot','😣'],['sev','Severe — I have to lie down in the dark','😫']]},
+ {id:'info1', type:'info', em:'🧠', t:'You are not imagining it', p:'Migraine is a real neurological condition, not "just a headache". The good news: for many people, daily habits like sleep, meals, water, screens and stress strongly influence how often attacks come. That is exactly what your plan will work on.'},
+ {id:'symp', multi:true, q:'What else happens during an attack?', sub:'Select all that apply.', opts:[['nausea','Nausea or vomiting','🤢'],['light','Sensitivity to light','💡'],['sound','Sensitivity to sound','🔊'],['aura','Zig-zag lines or flashes before pain (aura)','✨'],['neck','Neck or shoulder stiffness','🧍'],['none','None of these','➖']]},
+ {id:'trig', multi:true, q:'What seems to set off your migraines?', sub:'Select all you have noticed. Not sure is okay — we will help you find out.', opts:[['stress','Stress or tension','😰'],['sleep','Too little or irregular sleep','😴'],['meals','Skipping or delaying meals','🍽️'],['water','Not drinking enough water','💧'],['screen','Long screen time','💻'],['sun','Bright sun or glare','☀️'],['smell','Strong smells','🌸'],['food','Certain foods','🧀'],['caff','Too much or missed coffee/tea','☕'],['hormone','Periods or hormonal changes','🌙'],['weather','Weather changes','🌦️'],['travel','Travel, noise or crowds','🚌'],['unsure','I am not sure','🤔']]},
+ {id:'sleep', q:'How many hours do you usually sleep?', opts:[['lt5','Less than 5 hours','🥱'],['5to6','5–6 hours','😪'],['7to8','7–8 hours','😌'],['9p','More than 9 hours','🛌']]},
+ {id:'routine', q:'Do you sleep and wake up at about the same time every day?', opts:[['yes','Yes, mostly the same','✅'],['some','Only on weekdays','↔️'],['no','No, it changes a lot','🔀']]},
+ {id:'water', q:'How much water do you drink in a day?', opts:[['low','Less than 4 glasses','🥛'],['midw','4–7 glasses','🥤'],['good','8 glasses or more','💧']]},
+ {id:'screen', q:'How many hours a day are you in front of screens?', opts:[['s1','Less than 4 hours','📱'],['s2','4–8 hours','💻'],['s3','More than 8 hours','🖥️']]},
+ {id:'caffeine', q:'How many cups of coffee or tea do you drink daily?', opts:[['c0','None','🚫'],['c1','1–2 cups','☕'],['c3','3 or more cups','☕☕']]},
+ {id:'move', q:'How often do you exercise or walk briskly?', opts:[['m0','Rarely','🪑'],['m1','1–2 times a week','🚶'],['m3','3 or more times a week','🏃']]},
+ {id:'stresslvl', type:'scale', q:'How stressed do you feel on a typical day?', lo:'Very calm', hi:'Very stressed'},
+ {id:'pain', q:'How many days a month do you take painkillers for headaches?', sub:'Honest answers help us keep your plan safe.', opts:[['p0','0–4 days','🟢'],['p5','5–9 days','🟡'],['p10','10 or more days','🔴']]},
+ {id:'safety', multi:true, q:'Safety check: has any of these happened to you?', sub:'Select all that apply. This helps us know when a doctor should see you first.', opts:[['thunder','A sudden, "worst ever" headache that peaked within a minute','⚡'],['neuro','Weakness, numbness, slurred speech or confusion with a headache','🧩'],['fever','Headache with fever and a stiff neck','🌡️'],['injury','Headaches that started after a head injury','🤕'],['new50','A new kind of headache that began after age 50','📈'],['vision','Loss of vision during a headache','👁️'],['preg','I am pregnant','🤰'],['none','None of these','✅']]},
+ {id:'goal', q:'What matters most to you right now?', opts:[['fewer','Fewer migraine days','📉'],['milder','Milder, shorter attacks','🌈'],['pills','Relying less on painkillers','💊'],['know','Finally understanding my triggers','🔍']]},
+ {id:'time', q:'How much time can you give your plan each day?', opts:[['t10','10 minutes','⏳'],['t15','15 minutes','⌛'],['t20','20 minutes or more','🕐']]},
+ {id:'loading', type:'loading'},
+ {id:'email', type:'email'},
+ {id:'result', type:'result'},
+];
+const QUIZ_LEN = Q.filter(q=>!q.type || q.type==='scale').length + 1;
+
+const app = document.getElementById('app');
+const back = document.getElementById('back');
+
+function progress(){
+  const s = Q[idx];
+  const counted = Q.slice(0, idx+1).filter(q=>!q.type || q.type==='scale' || q.type==='landing').length;
+  const hide = ['landing','loading','email','result','redflag'].includes(s.type);
+  document.getElementById('barw').style.visibility = hide ? 'hidden':'visible';
+  document.getElementById('stepn').textContent = hide ? '' : counted + ' / ' + QUIZ_LEN;
+  document.getElementById('bar').style.width = (counted/QUIZ_LEN*100)+'%';
+  back.classList.toggle('show', hist.length>0 && !['loading','result'].includes(s.type));
+}
+
+function go(i){ hist.push(idx); idx=i; render(); window.scrollTo(0,0); }
+function next(){ go(idx+1); }
+back.onclick = ()=>{ if(!hist.length) return; idx = hist.pop(); if(Q[idx].type==='loading') idx = hist.pop(); render(); };
+
+function render(){
+  const s = Q[idx];
+  progress();
+  app.className='fade'; void app.offsetWidth;
+  if(s.type==='landing') return landing();
+  if(s.type==='info') return info(s);
+  if(s.type==='scale') return scale(s);
+  if(s.type==='loading') return loading();
+  if(s.type==='email') return email();
+  if(s.type==='result') return result();
+  return question(s);
+}
+
+function landing(){
+  app.innerHTML = `
+  <div class="hero">
+    <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#fff"/><path d="M34 70c0-18 12-32 26-32s26 14 26 32" stroke="#5b4fe0" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="60" cy="76" r="7" fill="#22b8a6"/><path d="M22 40l8 6M98 40l-8 6M60 16v10" stroke="#f6a04d" stroke-width="5" stroke-linecap="round"/></svg>
+    <h1>Fewer migraine days — without adding more pills</h1>
+    <p class="sub" style="margin-bottom:0">Take a 2-minute quiz. Get a 28-day, drug-free migraine relief plan built around <b>your</b> triggers.</p>
+    <div class="badges"><span class="badge">🌿 Drug-free methods</span><span class="badge">⏱️ 10–20 min a day</span><span class="badge">🩺 Safe alongside your doctor's care</span></div>
+  </div>
+  <h2 style="font-size:18px">Select your age to begin</h2>
+  <div class="opts grid2" style="margin-top:12px">
+    ${[['18-29','18–29','🌱'],['30-39','30–39','🌿'],['40-49','40–49','🌳'],['50+','50+','🍂']].map(o=>`<button class="opt" data-v="${o[0]}"><span class="em">${o[2]}</span>${o[1]}</button>`).join('')}
+  </div>
+  <p class="note">By continuing you agree to our Terms and Privacy Policy. This programme gives lifestyle guidance and is not medical treatment.</p>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{A.age=b.dataset.v; next();});
+}
+
+function question(s){
+  const cur = A[s.id] || (s.multi?[]:null);
+  app.innerHTML = `<h2>${s.q}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:'<div style="height:14px"></div>'}
+  <div class="opts">${s.opts.map(o=>{
+    const sel = s.multi ? cur.includes(o[0]) : cur===o[0];
+    return `<button class="opt ${sel?'sel':''}" data-v="${o[0]}"><span class="em">${o[2]}</span><span>${o[1]}</span>${s.multi?'<span class="ck">✓</span>':''}</button>`;}).join('')}
+  </div>${s.multi?`<button class="cta" id="cont" ${cur.length?'':'disabled'}>Continue</button>`:''}`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.v;
+    if(!s.multi){ A[s.id]=v; app.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); setTimeout(()=>afterAnswer(s),180); return; }
+    let arr = A[s.id]||[];
+    const exclusive = ['none','unsure'];
+    if(exclusive.includes(v)) arr = arr.includes(v)?[]:[v];
+    else { arr = arr.filter(x=>!exclusive.includes(x)); arr = arr.includes(v)?arr.filter(x=>x!==v):[...arr,v]; }
+    A[s.id]=arr; question(s);
+  });
+  const c=document.getElementById('cont'); if(c) c.onclick=()=>afterAnswer(s);
+}
+
+function afterAnswer(s){
+  if(s.id==='safety'){
+    const red = (A.safety||[]).filter(x=>x!=='none');
+    if(red.length) return redflag(red);
+  }
+  next();
+}
+
+function redflag(red){
+  hist.push(idx);
+  progress(); document.getElementById('barw').style.visibility='hidden'; document.getElementById('stepn').textContent='';
+  const urgent = red.some(r=>['thunder','neuro','fever','vision'].includes(r));
+  app.className='fade'; void app.offsetWidth;
+  app.innerHTML = `<div class="alert">
+    <h2>${urgent?'Please get medical help first':'Please check with a doctor first'}</h2>
+    <p class="sub" style="margin:6px 0 0;color:#5a3a38">${urgent
+      ? 'Some of what you selected can be a sign of a condition that needs urgent care. If it is happening now, call <b>112</b> or <b>108</b> or go to the nearest emergency department.'
+      : 'What you selected means a doctor should review your headaches before you start any self-care programme.'}</p>
+    <ul>${red.map(r=>'<li>'+Q.find(q=>q.id==='safety').opts.find(o=>o[0]===r)[1]+'</li>').join('')}</ul>
+  </div>
+  <p class="sub" style="margin-top:16px">ClearDays focuses on lifestyle habits and does not diagnose or treat medical conditions. You can still see the plan, but please share it with your doctor before you start.</p>
+  <button class="cta" id="cont">I understand — continue</button>`;
+  back.classList.add('show');
+  document.getElementById('cont').onclick=()=>{ idx = Q.findIndex(q=>q.id==='goal'); render(); window.scrollTo(0,0); };
+}
+
+function info(s){
+  app.innerHTML = `<div class="info"><div class="big">${s.em}</div><h2>${s.t}</h2><p>${s.p}</p></div><button class="cta" id="cont">Continue</button>`;
+  document.getElementById('cont').onclick=next;
+}
+
+function scale(s){
+  app.innerHTML = `<h2>${s.q}</h2><div style="height:14px"></div>
+  <div class="scale">${[1,2,3,4,5].map(n=>`<button class="opt ${A[s.id]==n?'sel':''}" data-v="${n}">${n}</button>`).join('')}</div>
+  <div class="scale-l"><span>${s.lo}</span><span>${s.hi}</span></div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{A[s.id]=+b.dataset.v; b.classList.add('sel'); setTimeout(next,180);});
+}
+
+function loading(){
+  const steps=['Reading your migraine pattern','Matching your likely triggers','Choosing drug-free techniques','Building your 28-day plan'];
+  app.innerHTML = `<div class="loader"><h2>Creating your personal plan…</h2>
+   <div class="ring"><svg width="150" height="150"><circle cx="75" cy="75" r="64" stroke="#e3e7f1" stroke-width="12" fill="none"/><circle id="arc" cx="75" cy="75" r="64" stroke="url(#g)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/><defs><linearGradient id="g"><stop offset="0" stop-color="#5b4fe0"/><stop offset="1" stop-color="#22b8a6"/></linearGradient></defs></svg><b id="pct">0%</b></div>
+   <div class="lsteps">${steps.map(t=>`<div><span>✓</span>${t}</div>`).join('')}</div></div>`;
+  let p=0; const arc=document.getElementById('arc'), pct=document.getElementById('pct'), rows=app.querySelectorAll('.lsteps div');
+  const t=setInterval(()=>{ p+=2; arc.style.strokeDashoffset=402-402*p/100; pct.textContent=p+'%';
+    rows.forEach((r,i)=>{ if(p>=(i+1)*25) r.classList.add('done'); });
+    if(p>=100){ clearInterval(t); setTimeout(next,500); } },60);
+}
+
+function email(){
+  app.innerHTML = `<h2>Your plan is ready 🎉</h2><p class="sub">Where should we send your 28-day ClearDays plan and daily reminders?</p>
+  <form id="f"><input type="text" id="nm" placeholder="Your first name" autocomplete="given-name"><input type="email" id="em" placeholder="Your email address" autocomplete="email" required>
+  <button class="cta" type="submit">See my plan</button></form>
+  <p class="note">🔒 We never share your email. Prototype: nothing you type here is sent or stored.</p>`;
+  document.getElementById('f').onsubmit=e=>{e.preventDefault(); const em=document.getElementById('em').value.trim(); if(!/^\S+@\S+\.\S+$/.test(em)) {document.getElementById('em').focus(); return;} A.name=document.getElementById('nm').value.trim(); next();};
+}
+
+const TR = {stress:'Stress',sleep:'Irregular sleep',meals:'Skipped meals',water:'Dehydration',screen:'Screen strain',sun:'Bright light',smell:'Strong smells',food:'Food triggers',caff:'Caffeine swings',hormone:'Hormonal changes',weather:'Weather changes',travel:'Noise & travel'};
+
+function profile(){
+  const f=[]; // lifestyle flags
+  if(['lt5','5to6'].includes(A.sleep)) f.push(['😴','<b>Short sleep.</b> Under 7 hours is a common migraine trigger. Your plan protects 7–8 hours.']);
+  if(A.routine==='no'||A.routine==='some') f.push(['🔀','<b>Changing sleep times.</b> Weekend lie-ins and late nights can set off attacks. Your plan fixes a steady wake-up time.']);
+  if(A.water!=='good') f.push(['💧','<b>Low water intake.</b> Your plan builds up to 8 glasses a day, step by step.']);
+  if(A.screen==='s3'||A.screen==='s2') f.push(['💻','<b>Long screen hours.</b> Your plan adds eye breaks, glare control and a screen curfew.']);
+  if(A.caffeine==='c3') f.push(['☕','<b>High caffeine.</b> Your plan tapers it slowly so you do not get withdrawal headaches.']);
+  if(A.move==='m0') f.push(['🚶','<b>Little exercise.</b> Gentle, regular walking is one of the best-studied non-drug habits for migraine.']);
+  if((A.stresslvl||0)>=4) f.push(['😰','<b>High daily stress.</b> Your plan includes daily breathing and relaxation sessions.']);
+  if((A.trig||[]).includes('meals')) f.push(['🍽️','<b>Skipped meals.</b> Your plan sets regular meal and snack times.']);
+  return f;
+}
+
+function score(){
+  let s={rare:1,monthly:2,weekly:4,often:5}[A.freq]||2;
+  if(A.sev==='sev') s=Math.min(5,s+1);
+  return s;
+}
+
+function weeks(){
+  const t=A.trig||[]; const time={t10:'10',t15:'15',t20:'20'}[A.time]||'15';
+  const w1=['Start a 1-minute daily headache diary (time, sleep, food, stress, pain level)'];
+  w1.push(['lt5','5to6'].includes(A.sleep)||A.routine!=='yes' ? 'Fix one wake-up time for all 7 days — even on Sunday' : 'Keep your steady sleep routine and note any late nights');
+  w1.push(A.water!=='good' ? 'Water ladder: add 1 glass a day until you reach 8' : 'Keep 8 glasses a day; carry a bottle on busy days');
+  w1.push('Eat within 1 hour of waking; no gap longer than 4–5 hours between meals');
+  const w2=['Review your diary: spot what happens 24 hours before each attack'];
+  if(t.includes('food')) w2.push('Test one suspected food at a time instead of cutting everything');
+  if(t.includes('screen')||A.screen!=='s1') w2.push('20-20-20 eye rule, screen brightness down, no screens 45 min before bed');
+  if(t.includes('caff')||A.caffeine==='c3') w2.push('Taper coffee/tea by half a cup every 3 days; same time each day');
+  if(t.includes('hormone')) w2.push('Mark your cycle in the diary to see if attacks cluster around periods (share this with your doctor)');
+  if(t.includes('sun')) w2.push('Sunglasses and a cap outdoors; sit away from glare at work');
+  if(w2.length<3) w2.push('Plan a "trigger-safe" day for busy days: meals packed, water ready, breaks booked');
+  const w3=[`Daily ${time}-minute calm session: slow breathing, then progressive muscle relaxation`,'Gentle neck and shoulder stretches twice a day','Attack-day toolkit: dark quiet room, cold pack on forehead or neck, sips of water, rest early'];
+  if(A.move!=='m3') w3.push('Brisk walk 20–30 minutes, 3 days this week');
+  const w4=['Compare week 1 and week 4 in your diary: attack days, length, strength','Keep the 3 habits that helped most; drop what did not','Write your personal "migraine rulebook" to follow after the plan'];
+  if(A.pain==='p10'||A.pain==='p5') w4.push('Take your diary to your doctor to review your painkiller use');
+  return [['Week 1 · Steady your rhythm',w1],['Week 2 · Find your triggers',w2],['Week 3 · Calm your nervous system',w3],['Week 4 · Lock in what works',w4]];
+}
+
+function result(){
+  const nm = A.name ? A.name.split(' ')[0] : '';
+  const sc = score();
+  const freqTxt = {rare:'less than once a month',monthly:'1–3 times a month',weekly:'1–2 times a week',often:'3+ times a week'}[A.freq]||'';
+  const trig = (A.trig||[]).filter(x=>TR[x]).map(x=>TR[x]);
+  const flags = profile();
+  const W = weeks();
+  const goalTxt = {fewer:'fewer migraine days',milder:'milder, shorter attacks',pills:'relying less on painkillers',know:'understanding your triggers'}[A.goal]||'fewer migraine days';
+  const red = (A.safety||[]).some(x=>x!=='none');
+
+  app.innerHTML = `
+  <h2>${nm?nm+', your':'Your'} ClearDays plan is ready</h2>
+  <p class="sub">Built around your answers, with one focus: <b>${goalTxt}</b>.</p>
+
+  ${red?`<div class="warnbox">⚠️ You reported a warning sign in the safety check. Please see a doctor before starting, and share this plan with them.</div>`:''}
+  ${A.pain==='p10'?`<div class="warnbox">💊 Taking painkillers on 10 or more days a month can itself keep headaches going ("medication-overuse headache"). Please talk to your doctor about this. <b>Do not stop any prescribed medicine on your own.</b></div>`:''}
+
+  <div class="card"><h3>📊 Your migraine load</h3>
+    <div class="meter">${[1,2,3,4,5].map(n=>`<i class="${n<=sc?'on':''}"></i>`).join('')}</div>
+    <div class="row"><span>Light</span><span>Heavy</span></div>
+    <p style="font-size:14px;margin-top:10px;color:#3a4062">Attacks ${freqTxt}, ${({short:'usually under 4 hours',mid:'usually 4–24 hours',long:'often 1–3 days'})[A.dur]||''}.</p>
+  </div>
+
+  <div class="card"><h3>🎯 Your likely triggers</h3>
+    <div class="chips">${trig.length?trig.map(t=>`<span class="chip">${t}</span>`).join(''):'<span class="chip">To be found in Week 2</span>'}</div>
+  </div>
+
+  ${flags.length?`<div class="card"><h3>🔍 What your plan will work on</h3>${flags.slice(0,5).map(f=>`<div class="flag"><span>${f[0]}</span><span>${f[1]}</span></div>`).join('')}</div>`:''}
+
+  <div class="card"><h3>🗓️ Your 28-day plan</h3>
+    <div class="week"><h4>${W[0][0]} <span class="chip t" style="font-size:11px;padding:3px 8px">Free preview</span></h4><ul>${W[0][1].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="locked"><div class="blur">${W.slice(1).map(w=>`<div class="week"><h4>${w[0]}</h4><ul>${w[1].map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+      <div class="lockmsg">🔒 Unlock weeks 2–4, daily reminders<br>and your guided calm sessions</div></div>
+  </div>
+
+  <h2 style="margin-top:22px">Choose your plan</h2>
+  <div class="plans" id="plans">
+    <div class="plan" data-p="week"><span class="rad"></span><div><div class="pn">7-day trial</div><div class="pd">Then ₹399 every month</div></div><div class="pp"><b>₹99</b></div></div>
+    <div class="plan sel" data-p="m1"><span class="tag">MOST POPULAR</span><span class="rad"></span><div><div class="pn">1-month plan</div><div class="pd">Full 28-day programme</div></div><div class="pp"><s>₹799</s><b>₹399</b></div></div>
+    <div class="plan" data-p="m3"><span class="rad"></span><div><div class="pn">3-month plan</div><div class="pd">Plan + 2 months of habit support</div></div><div class="pp"><s>₹1,999</s><b>₹899</b></div></div>
+  </div>
+  <button class="cta" id="buy">Get my ClearDays plan</button>
+  <p class="renew" id="renew"></p>
+
+  <div class="trust">
+    <div>✅ <span>Drug-free methods: sleep, food timing, water, movement, relaxation</span></div>
+    <div>✅ <span>Works alongside your doctor's treatment, never instead of it</span></div>
+    <div>✅ <span>Cancel anytime in two taps, with a reminder before every renewal</span></div>
+  </div>
+
+  <p class="disc">ClearDays provides lifestyle and self-care education. It does not diagnose, treat or cure migraine or any other medical condition, and it is not a substitute for advice from a qualified doctor. Do not stop or change prescribed medicines without talking to your doctor. Results vary from person to person. If you have a sudden severe headache, weakness, numbness, confusion, or fever with a stiff neck, seek emergency care (112 / 108).</p>
+  <button class="cta ghost" id="restart" style="margin-top:18px">Restart quiz</button>`;
+
+  const renewTxt = {week:'₹99 today for 7 days. Unless you cancel before day 7, your plan renews automatically at ₹399 per month.',
+    m1:'₹399 today. Your plan renews automatically at ₹399 per month unless you cancel before the renewal date.',
+    m3:'₹899 today for 3 months. It renews automatically at ₹899 every 3 months unless you cancel before the renewal date.'};
+  const setP = p=>{ app.querySelectorAll('.plan').forEach(x=>x.classList.toggle('sel',x.dataset.p===p)); document.getElementById('renew').textContent = renewTxt[p]+' We will remind you 3 days before any charge.'; };
+  app.querySelectorAll('.plan').forEach(x=>x.onclick=()=>setP(x.dataset.p));
+  setP('m1');
+  document.getElementById('buy').onclick=()=>document.getElementById('modal').classList.add('show');
+  document.getElementById('restart').onclick=()=>{ for(const k in A) delete A[k]; hist=[]; idx=0; render(); window.scrollTo(0,0); };
+}
+
+render();
+</script>
+</body>
+</html>
