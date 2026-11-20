@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClearDays — Natural Food Plan for Fewer Migraine Days</title>
+<meta name="description" content="Take a 2-minute quiz and get a 28-day natural food plan for fewer migraine days — gently moving off excess sugar, white rice, oil, tamarind and salt.">
+<meta property="og:title" content="ClearDays — Fewer migraine days, with food, not more pills">
+<meta property="og:description" content="2-minute quiz → your personal 28-day natural food plan for migraine.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#5b4fe0">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2215%22 fill=%22%235b4fe0%22/%3E%3Cpath d=%22M9 18c2-5 5-7 7-7s5 2 7 7%22 stroke=%22white%22 stroke-width=%222.6%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2216%22 cy=%2221%22 r=%222.2%22 fill=%22%2322b8a6%22/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --ink:#1d2340; --muted:#646b8a; --line:#e3e7f1;
+  --brand:#5b4fe0; --brand2:#22b8a6; --soft:#efedff; --soft2:#e6f8f5;
+  --warn:#d9534f; --warnbg:#fff1f0; --amber:#b7791f; --amberbg:#fff8e6;
+}
+a{color:var(--brand)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.wrap{max-width:520px;margin:0 auto;padding:16px 18px 40px;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;height:44px;margin-bottom:6px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;letter-spacing:-.3px}
+.logo svg{width:26px;height:26px}
+.back{background:none;border:none;font:inherit;color:var(--muted);font-size:15px;cursor:pointer;padding:6px 4px;visibility:hidden}
+.back.show{visibility:visible}
+.step{font-size:13px;color:var(--muted);min-width:48px;text-align:right}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .35s}
+main{flex:1}
+h1{font-size:28px;line-height:1.2;letter-spacing:-.6px;font-weight:800;margin-bottom:10px}
+h2{font-size:22px;line-height:1.3;letter-spacing:-.4px;font-weight:800;margin-bottom:6px}
+.sub{color:var(--muted);font-size:15px;line-height:1.5;margin-bottom:20px}
+.opts{display:grid;gap:10px}
+.opts.grid2{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:15px 16px;font:inherit;font-size:15.5px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left;transition:border-color .15s,background .15s,transform .1s}
+.opt:hover{border-color:#c9c3ff}
+.opt:active{transform:scale(.99)}
+.opt.sel{border-color:var(--brand);background:var(--soft)}
+.opt .em{font-size:22px;width:28px;text-align:center}
+.opt .ck{margin-left:auto;width:22px;height:22px;border-radius:6px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;font-size:13px;color:#fff}
+.opt.sel .ck{background:var(--brand);border-color:var(--brand)}
+.grid2 .opt{flex-direction:column;justify-content:center;text-align:center;padding:20px 10px}
+.grid2 .opt .em{font-size:34px;width:auto}
+.cta{display:block;width:100%;margin-top:22px;background:linear-gradient(90deg,var(--brand),#7a5cf0);color:#fff;border:none;border-radius:14px;padding:17px;font:inherit;font-size:16.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(91,79,224,.25)}
+.cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.cta.ghost{background:none;color:var(--brand);box-shadow:none;border:2px solid var(--brand)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5}
+.hero{background:linear-gradient(160deg,var(--soft),var(--soft2));border-radius:22px;padding:24px 20px;margin-bottom:22px;text-align:center}
+.hero svg{width:120px;height:120px;margin-bottom:8px}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.badge{background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.info{background:var(--card);border-radius:20px;padding:24px 20px;text-align:center;border:1px solid var(--line)}
+.info .big{font-size:52px;margin-bottom:10px}
+.info p{color:var(--muted);line-height:1.6;font-size:15px;margin-top:8px}
+.scale{display:flex;gap:8px;margin-top:8px}
+.scale .opt{flex:1;justify-content:center;padding:16px 0;font-size:18px}
+.scale-l{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px}
+.alert{background:var(--warnbg);border:1px solid #f3c4c1;border-radius:18px;padding:20px}
+.alert h2{color:var(--warn)}
+.alert ul{margin:12px 0 0 18px;line-height:1.7;font-size:14.5px}
+.loader{text-align:center;padding-top:20px}
+.ring{width:150px;height:150px;margin:10px auto 22px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;font-weight:800}
+.lsteps{text-align:left;display:grid;gap:12px;margin-top:10px}
+.lsteps div{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:15px;transition:color .3s}
+.lsteps div.done{color:var(--ink)}
+.lsteps span{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0}
+.lsteps div.done span{background:var(--brand2);border-color:var(--brand2)}
+input[type=text],input[type=email]{width:100%;font:inherit;font-size:16px;padding:16px;border-radius:14px;border:2px solid var(--line);background:#fff;margin-bottom:12px;outline:none}
+input:focus{border-color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.card h3{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--soft);color:var(--brand);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.chip.t{background:var(--soft2);color:#13897b}
+.meter{display:flex;gap:4px;margin:8px 0 4px}
+.meter i{flex:1;height:10px;border-radius:4px;background:var(--line)}
+.meter i.on{background:linear-gradient(90deg,#f6a04d,#e8664a)}
+.row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.flag{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.45}
+.flag:first-of-type{border-top:none}
+.week{border-left:3px solid var(--brand);padding:2px 0 2px 14px;margin:14px 0}
+.week h4{font-size:15px;margin-bottom:6px}
+.week ul{margin-left:18px;font-size:14px;line-height:1.65;color:#3a4062}
+.locked{position:relative}
+.locked .blur{filter:blur(4px);user-select:none;pointer-events:none}
+.locked .lockmsg{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--brand);font-size:14.5px;text-align:center}
+.warnbox{background:var(--amberbg);border:1px solid #f1d59a;color:#7a5410;border-radius:14px;padding:14px;font-size:14px;line-height:1.5;margin-bottom:14px}
+.plans{display:grid;gap:10px;margin-top:6px}
+.plan{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer}
+.plan.sel{border-color:var(--brand);background:var(--soft)}
+.plan .rad{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex-shrink:0}
+.plan.sel .rad{border:7px solid var(--brand)}
+.plan .pn{font-weight:700;font-size:15.5px}
+.plan .pd{font-size:12.5px;color:var(--muted);margin-top:2px}
+.plan .pp{margin-left:auto;text-align:right}
+.plan .pp b{font-size:20px}
+.plan .pp s{display:block;font-size:12px;color:var(--muted)}
+.plan .tag{position:absolute;top:-10px;right:14px;background:var(--brand2);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.renew{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:12px;text-align:center}
+.trust{display:grid;gap:8px;margin-top:18px;font-size:14px}
+.trust div{display:flex;gap:8px}
+.modal{position:fixed;inset:0;background:rgba(20,22,40,.5);display:none;place-items:center;padding:20px;z-index:10}
+.modal.show{display:grid}
+.modal .box{background:#fff;border-radius:20px;padding:24px;max-width:400px;text-align:center}
+.modal .box p{color:var(--muted);line-height:1.55;margin:8px 0 16px;font-size:14.5px}
+.disc{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:28px;text-align:center}
+.fade{animation:f .3s ease}
+@keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:4px -2px 16px;padding:2px}
+.tab{flex-shrink:0;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.days{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;margin-bottom:6px}
+.dp{flex-shrink:0;width:42px;height:50px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:11px;color:var(--muted);cursor:pointer;line-height:1.2}
+.dp b{display:block;font-size:16px;color:var(--ink)}
+.dp.on{border-color:var(--brand);background:var(--soft)}
+.dp.done{background:var(--soft2);border-color:var(--brand2)}
+.dp.lk{opacity:.45}
+.task{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);cursor:pointer;font-size:14.5px;line-height:1.45}
+.task:first-of-type{border-top:none}
+.task .bx{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;color:#fff;font-size:13px;margin-top:1px}
+.task.ok .bx{background:var(--brand2);border-color:var(--brand2)}
+.task.ok span.t{color:var(--muted);text-decoration:line-through}
+.theme{border-radius:18px;padding:18px;margin-bottom:14px;color:#fff;background:linear-gradient(135deg,#5b4fe0,#22b8a6)}
+.theme small{opacity:.85;font-weight:600;font-size:12.5px;letter-spacing:.3px;text-transform:uppercase}
+.theme h2{color:#fff;margin:4px 0}
+.theme p{opacity:.92;font-size:14px;line-height:1.5}
+.swap{display:grid;grid-template-columns:1fr 22px 1.4fr;gap:8px;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:14px;line-height:1.4}
+.swap:first-of-type{border-top:none}
+.swap .no{color:#b23a35;font-weight:700}
+.swap .yes{color:#13897b;font-weight:600}
+.meal{padding:10px 0;border-top:1px solid var(--line);font-size:14px;line-height:1.5}
+.meal:first-of-type{border-top:none}
+.meal b{display:block;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.pacer{width:180px;height:180px;margin:10px auto;border-radius:50%;background:radial-gradient(circle,#bfe9e3,#5b4fe0);transform:scale(.55);transition:transform 4s ease-in-out;display:grid;place-items:center;color:#fff;font-weight:800}
+.bars{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:10px}
+.bars div{flex:1;text-align:center;font-size:11px;color:var(--muted)}
+.bars i{display:block;background:linear-gradient(180deg,#f6a04d,#e8664a);border-radius:6px 6px 0 0;margin-bottom:4px;min-height:3px}
+.demo{position:sticky;top:0;z-index:5;background:#1d2340;color:#fff;border-radius:14px;padding:10px;margin-bottom:14px;font-size:12.5px}
+.demo .sw{display:flex;gap:6px;margin-top:8px}
+.demo button{flex:1;border:none;border-radius:10px;padding:9px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;background:#3a4166;color:#fff}
+.demo button.on{background:#22b8a6}
+select,textarea,input[type=number],input[type=time],input[type=date]{width:100%;font:inherit;font-size:15px;padding:12px;border-radius:12px;border:2px solid var(--line);background:#fff;margin:4px 0 12px}
+label.l{font-size:13px;font-weight:700;color:var(--muted)}
+.mini{font-size:12.5px;color:var(--muted);line-height:1.5}
+.gcards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.gcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;background:#fff;border:1.5px solid #e6e9f0;border-radius:24px;padding:18px 6px 16px;font:inherit;cursor:pointer;transition:transform .6s ease,border-color .6s ease,box-shadow .6s ease,background .6s ease}
+.gcard:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(120,160,140,.16);border-color:#cfe3d4}
+.gcard .gav{width:86px;height:86px;display:block;animation:breathe 5s ease-in-out infinite}
+.gcard:nth-child(2) .gav{animation-delay:-1.6s}
+.gcard:nth-child(3) .gav{animation-delay:-3.2s}
+.gcard .gav svg{width:100%;height:100%;display:block}
+.gcard .gl{font-weight:600;font-size:14px;color:#3d4560;line-height:1.25;text-align:center;letter-spacing:.1px}
+.gcard .gck{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:50%;background:#8fbf9a;color:#fff;font-size:11px;display:grid;place-items:center;opacity:0;transform:scale(.6);transition:all .5s ease}
+.gcard.sel{border-color:#9cc8a6;background:#f3f9f4;box-shadow:0 0 0 6px rgba(156,200,166,.18)}
+.gcard.sel .gck{opacity:1;transform:scale(1)}
+.gcard.pop .gav{animation:settle .9s ease}
+@keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.025)}}
+@keyframes settle{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.gcard .gav{animation:none}}
+@media(max-width:360px){.gcard .gav{width:70px;height:70px}}
+</style>
+<!-- STEP 4 (optional): paste your Meta (Facebook) Pixel code here, just above </head> -->
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <button class="back" id="back">← Back</button>
+    <div class="logo">
+      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#5b4fe0"/><path d="M9 18c2-5 5-7 7-7s5 2 7 7" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="16" cy="21" r="2.2" fill="#22b8a6"/></svg>
+      ClearDays
+    </div>
+    <div class="step" id="stepn"></div>
+  </header>
+  <div class="bar" id="barw"><i id="bar"></i></div>
+  <main id="app"></main>
+  <footer style="text-align:center;font-size:12.5px;color:var(--muted);margin-top:30px;line-height:2">
+    <a href="about.html">About</a> · <a href="pricing.html">Pricing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="refund.html">Refunds &amp; Cancellation</a> · <a href="shipping.html">Delivery</a> · <a href="contact.html">Contact</a>
+    <br>© 2026 ClearDays · [YOUR LEGAL BUSINESS NAME]
+  </footer>
+</div>
+
+<div class="modal" id="modal"><div class="box">
+  <h2>Opening soon</h2>
+  <p>Payments for this plan are being set up. Please check back shortly, or write to us from the <a href="contact.html">contact page</a>.</p>
+  <button class="cta" onclick="document.getElementById('modal').classList.remove('show')">Got it</button>
+</div></div>
+
+<script>
+/* ============ STEP 1: PASTE YOUR RAZORPAY PAYMENT PAGE LINKS HERE ============
+   Razorpay Dashboard -> Payment Pages -> create one page per plan -> copy its link (https://rzp.io/...)
+   Leave a link as '' and that plan's button shows a "coming soon" message instead. */
+const PAY_LINKS = {
+  starter: '',   // 7-day starter plan, Rs 99
+  m1:      '',   // 28-day full plan, Rs 399
+  m3:      ''    // 3-month plan, Rs 899
+};
+/* ============================================================================ */
+
+/* ---------- safe storage (works even where the browser blocks storage) ---------- */
+const MEM = {};
+const S = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v===null ? (k in MEM ? MEM[k] : d) : JSON.parse(v); }catch(e){ return k in MEM ? MEM[k] : d; } },
+  set(k, v){ MEM[k] = v; try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+
+const A = {};
+let hist = [];
+let idx = 0;
+
+const Q = [
+ {id:'age', type:'landing'},
+ {id:'gender', cards:true, q:'Who is this plan for?', sub:'Migraine patterns can differ with hormones, so this helps us tailor your plan.', opts:[['female','Woman',`<svg viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="cw"><circle cx="50" cy="50" r="48"/></clipPath></defs><g clip-path="url(#cw)"><circle cx="50" cy="50" r="48" fill="#E6F0E8"/><circle cx="50" cy="48" r="30" fill="#F3F8F2"/><path d="M22 100c0-16 13-25 28-25s28 9 28 25z" fill="#E7C9D1"/><path d="M38 76c4 4 8 5 12 5s8-1 12-5" stroke="#D7B0BC" stroke-width="1.4" fill="none"/><rect x="44.5" y="62" width="11" height="13" rx="5" fill="#E8BFA2"/><path d="M31 50c0-15 8-25 19-25s19 10 19 25v20c-3 3-6 4-9 4H40c-3 0-6-1-9-4z" fill="#5B403B"/><ellipse cx="50" cy="50" rx="14.5" ry="16.5" fill="#F3D2BA"/><path d="M35.5 47c1.5-11 8-16.5 14.5-16.5S63 36 64.5 47c-2.5-6-8-10-14.5-10s-12 4-14.5 10z" fill="#5B403B"/><circle cx="50" cy="43" r="1.1" fill="#C7697A"/><path d="M40.8 50.6c1.7 1.7 4.6 1.7 6.3 0M52.9 50.6c1.7 1.7 4.6 1.7 6.3 0" stroke="#4A3A38" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="41.5" cy="56.5" r="2.4" fill="#F2A7B5" opacity=".35"/><circle cx="58.5" cy="56.5" r="2.4" fill="#F2A7B5" opacity=".35"/><path d="M46.6 59c1.9 1.4 4.9 1.4 6.8 0" stroke="#B0675F" stroke-width="1.5" fill="none" stroke-linecap="round"/></g><path d="M14 74c6-2 10 1 11 6-6 1-10-1-11-6z" fill="#A9CDAF"/><path d="M14 74c4 2 7 4 11 6" stroke="#86B48E" stroke-width="1" fill="none"/></svg>`],['male','Man',`<svg viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="cm"><circle cx="50" cy="50" r="48"/></clipPath></defs><g clip-path="url(#cm)"><circle cx="50" cy="50" r="48" fill="#E3EDF5"/><circle cx="50" cy="48" r="30" fill="#F1F6FA"/><path d="M21 100c0-16 13-25 29-25s29 9 29 25z" fill="#B9D6CB"/><path d="M50 76v12" stroke="#9DC2B4" stroke-width="1.4"/><circle cx="50" cy="81" r=".9" fill="#7FAF9D"/><circle cx="50" cy="85" r=".9" fill="#7FAF9D"/><rect x="44.5" y="62" width="11" height="13" rx="5" fill="#DDAE8E"/><circle cx="35" cy="51" r="3" fill="#E6BB9C"/><circle cx="65" cy="51" r="3" fill="#E6BB9C"/><ellipse cx="50" cy="50" rx="14.5" ry="16.5" fill="#EEC6A8"/><path d="M34.5 47c-.5-12 7-19.5 15.5-19.5S66 35 65.5 47c-2.5-5.5-8-8.5-15.5-8.5s-13 3-15.5 8.5z" fill="#4A3F3D"/><path d="M37 55c1.5 8 6.5 12.5 13 12.5S61.5 63 63 55c-2.5 3-5 4-8 4H45c-3 0-5.5-1-8-4z" fill="#6B5B57" opacity=".55"/><path d="M40.8 50.6c1.7 1.7 4.6 1.7 6.3 0M52.9 50.6c1.7 1.7 4.6 1.7 6.3 0" stroke="#4A3A38" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M46.6 59.5c1.9 1.4 4.9 1.4 6.8 0" stroke="#9A5A50" stroke-width="1.5" fill="none" stroke-linecap="round"/></g><path d="M83 17a7 7 0 1 0 4 12.5A8.5 8.5 0 0 1 83 17z" fill="#C5D5EE"/><circle cx="18" cy="30" r="1.6" fill="#C5D5EE"/><circle cx="24" cy="22" r="1.1" fill="#C5D5EE"/></svg>`],['other','Prefer not to say',`<svg viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="co"><circle cx="50" cy="50" r="48"/></clipPath></defs><g clip-path="url(#co)"><circle cx="50" cy="50" r="48" fill="#ECE8F4"/><circle cx="50" cy="48" r="30" fill="#F6F3FA"/><path d="M22 100c0-16 13-25 28-25s28 9 28 25z" fill="#EDD9BC"/><rect x="44.5" y="62" width="11" height="13" rx="5" fill="#D4A385"/><path d="M33 52c-2-16 6-26 17-26s19 10 17 26c-1 6-3 9-5 10V45H38v17c-2-1-4-4-5-10z" fill="#8A78AE"/><ellipse cx="50" cy="51" rx="14" ry="16" fill="#E5B89A"/><path d="M36 47c1-10 7-15 14-15s13 5 14 15c-3-5-8-8-14-8s-11 3-14 8z" fill="#8A78AE"/><path d="M40.8 50.6c1.7 1.7 4.6 1.7 6.3 0M52.9 50.6c1.7 1.7 4.6 1.7 6.3 0" stroke="#4A3A38" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="41.5" cy="57" r="2.3" fill="#F2A7B5" opacity=".3"/><circle cx="58.5" cy="57" r="2.3" fill="#F2A7B5" opacity=".3"/><path d="M46.6 59.5c1.9 1.4 4.9 1.4 6.8 0" stroke="#9A5A50" stroke-width="1.5" fill="none" stroke-linecap="round"/></g><g transform="translate(78 76)"><path d="M0 0c-3-2-4-6-2-10 3 2 4 6 2 10z" fill="#D9C6EC"/><path d="M0 0c3-2 4-6 2-10-3 2-4 6-2 10z" fill="#D9C6EC"/><path d="M0 0c-1-3 0-8 0-12 0 4 1 9 0 12z" fill="#C3ACE0" stroke="#C3ACE0" stroke-width="2"/><path d="M-6 1c4 1 8 1 12 0" stroke="#A9CDAF" stroke-width="1.6" stroke-linecap="round"/></g></svg>`]]},
+ {id:'freq', q:'How often do you get a migraine?', opts:[['rare','Less than once a month','🌤️'],['monthly','1–3 times a month','⛅'],['weekly','1–2 times a week','🌥️'],['often','3 or more times a week','🌧️']]},
+ {id:'dur', q:'How long does an attack usually last?', opts:[['short','Under 4 hours','⏱️'],['mid','4 to 24 hours','🕓'],['long','1 to 3 days','📆']]},
+ {id:'sev', q:'How strong is the pain at its worst?', opts:[['mild','Mild — I can keep going','🙂'],['mod','Moderate — I slow down a lot','😣'],['sev','Severe — I have to lie down in the dark','😫']]},
+ {id:'info1', type:'info', em:'🥗', t:'Your plate matters more than you think', p:'Naturopathy has long held that what we eat shapes how our body feels. ClearDays helps you step away from excess sugar, white rice, oil, tamarind and salt — one food at a time — and replace them with millets, fruits, vegetables, sprouts and herbs. Small swaps, every day, for 28 days.'},
+ {id:'diet', q:'What do you usually eat?', opts:[['veg','Vegetarian','🥦'],['egg','Vegetarian + eggs','🥚'],['nonveg','Non-vegetarian','🍗']]},
+ {id:'rice', q:'How many times a day do you eat white rice?', sub:'Including rice, pulihora, curd rice, biryani and dosa/idli made from rice.', opts:[['r1','Once a day or less','🍚'],['r2','Twice a day','🍚🍚'],['r3','Three times a day','🍚🍚🍚']]},
+ {id:'sugar', q:'How much sugar do you have in a day?', sub:'Count sugar in tea/coffee, sweets, biscuits, juices and soft drinks.', opts:[['s0','Almost none','🚫'],['s1','1–2 sugary items a day','🍪'],['s3','3 or more sugary items a day','🍬']]},
+ {id:'oil', q:'How often do you eat fried or oily food?', sub:'Puri, vada, bajji, chips, mixture, deep-fried curries, oily gravies.', opts:[['o0','Rarely','🥗'],['o1','A few times a week','🍟'],['o3','Every day','🫕']]},
+ {id:'tamarind', q:'How often do you eat tamarind-based dishes?', sub:'Sambar, rasam, pulusu, pulihora, tamarind chutney.', opts:[['t0','Rarely','🌿'],['t1','A few times a week','🥣'],['t3','Every day','🍲']]},
+ {id:'salt', q:'How often do you eat salty foods?', sub:'Pickles, papad, chips, salted snacks, packaged foods, extra salt at the table.', opts:[['n0','Rarely','🧂'],['n1','A few times a week','🥨'],['n3','Every day','🫙']]},
+ {id:'trig', multi:true, q:'What else seems to set off your migraines?', sub:'Select all you have noticed.', opts:[['meals','Skipping or delaying meals','🍽️'],['stress','Stress or tension','😰'],['sleep','Too little or irregular sleep','😴'],['water','Not drinking enough water','💧'],['screen','Long screen time','💻'],['sun','Bright sun or heat','☀️'],['caff','Too much tea/coffee','☕'],['hormone','Periods or hormonal changes','🌙'],['unsure','I am not sure','🤔']]},
+ {id:'sleep', q:'How many hours do you usually sleep?', opts:[['lt5','Less than 5 hours','🥱'],['5to6','5–6 hours','😪'],['7to8','7–8 hours','😌'],['9p','More than 9 hours','🛌']]},
+ {id:'water', q:'How much water do you drink in a day?', opts:[['low','Less than 4 glasses','🥛'],['midw','4–7 glasses','🥤'],['good','8 glasses or more','💧']]},
+ {id:'stresslvl', type:'scale', q:'How stressed do you feel on a typical day?', lo:'Very calm', hi:'Very stressed'},
+ {id:'pain', q:'How many days a month do you take painkillers for headaches?', sub:'Honest answers help us keep your plan safe.', opts:[['p0','0–4 days','🟢'],['p5','5–9 days','🟡'],['p10','10 or more days','🔴']]},
+ {id:'health', multi:true, q:'Do any of these apply to you?', sub:'Diet changes can affect some health conditions and medicines. Select all that apply.', opts:[['diab','Diabetes — I take tablets or insulin','🩸'],['bp','High blood pressure — I take medicine','❤️'],['lowbp','Low blood pressure or I often feel dizzy','💫'],['kidney','Kidney disease','🫘'],['preg','Pregnant or breastfeeding','🤰'],['none','None of these','✅']]},
+ {id:'safety', multi:true, q:'Safety check: has any of these happened to you?', sub:'This helps us know when a doctor should see you first.', opts:[['thunder','A sudden, "worst ever" headache that peaked within a minute','⚡'],['neuro','Weakness, numbness, slurred speech or confusion with a headache','🧩'],['fever','Headache with fever and a stiff neck','🌡️'],['injury','Headaches that started after a head injury','🤕'],['new50','A new kind of headache that began after age 50','📈'],['vision','Loss of vision during a headache','👁️'],['none','None of these','✅']]},
+ {id:'goal', q:'What matters most to you right now?', opts:[['fewer','Fewer migraine days','📉'],['milder','Milder, shorter attacks','🌈'],['pills','Relying less on painkillers','💊'],['food','Eating cleaner and feeling lighter','🥗']]},
+ {id:'time', q:'How much time can you give your plan each day?', opts:[['t10','10 minutes','⏳'],['t15','15 minutes','⌛'],['t20','20 minutes or more','🕐']]},
+ {id:'loading', type:'loading'},
+ {id:'email', type:'email'},
+ {id:'result', type:'result'},
+];
+const QUIZ_LEN = Q.filter(q=>!q.type || q.type==='scale').length + 1;
+
+const app = document.getElementById('app');
+const back = document.getElementById('back');
+
+function progress(){
+  const s = Q[idx];
+  const counted = Q.slice(0, idx+1).filter(q=>!q.type || q.type==='scale' || q.type==='landing').length;
+  const hide = ['landing','loading','email','result'].includes(s.type) || PAID;
+  document.getElementById('barw').style.visibility = hide ? 'hidden':'visible';
+  document.getElementById('stepn').textContent = hide ? '' : counted + ' / ' + QUIZ_LEN;
+  document.getElementById('bar').style.width = (counted/QUIZ_LEN*100)+'%';
+  back.classList.toggle('show', hist.length>0 && !['loading','result'].includes(s.type) && !PAID);
+}
+function go(i){ hist.push(idx); idx=i; render(); window.scrollTo(0,0); }
+function next(){ go(idx+1); }
+back.onclick = ()=>{ if(!hist.length) return; idx = hist.pop(); if(Q[idx].type==='loading') idx = hist.pop(); render(); };
+
+function render(){
+  const s = Q[idx];
+  progress();
+  app.className='fade'; void app.offsetWidth;
+  if(s.type==='landing') return landing();
+  if(s.type==='info') return info(s);
+  if(s.type==='scale') return scale(s);
+  if(s.type==='loading') return loading();
+  if(s.type==='email') return email();
+  if(s.type==='result') return PAID ? dashboard() : result();
+  return question(s);
+}
+
+function landing(){
+  app.innerHTML = `
+  <div class="hero">
+    <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#fff"/><path d="M30 64h60a30 30 0 0 1-60 0z" fill="#22b8a6"/><circle cx="48" cy="56" r="8" fill="#f6a04d"/><circle cx="66" cy="52" r="9" fill="#7bc96f"/><circle cx="80" cy="58" r="6" fill="#e8664a"/><path d="M60 22c6 6 6 14 0 20-6-6-6-14 0-20z" fill="#7bc96f"/></svg>
+    <h1>Fewer migraine days — with food, not more pills</h1>
+    <p class="sub" style="margin-bottom:0">Take a 2-minute quiz. Get a 28-day natural food plan that gently moves you off excess <b>sugar, white rice, oil, tamarind and salt</b> — built around your plate.</p>
+    <div class="badges"><span class="badge">🥗 Naturopathy-inspired</span><span class="badge">🌾 Millets & whole foods</span><span class="badge">🩺 Safe alongside your doctor's care</span></div>
+  </div>
+  <h2 style="font-size:18px">Select your age to begin</h2>
+  <div class="opts grid2" style="margin-top:12px">
+    ${[['18-29','18–29','🌱'],['30-39','30–39','🌿'],['40-49','40–49','🌳'],['50+','50+','🍂']].map(o=>`<button class="opt" data-v="${o[0]}"><span class="em">${o[2]}</span>${o[1]}</button>`).join('')}
+  </div>
+  <p class="note">By continuing you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. This programme gives food and lifestyle guidance and is not medical treatment.</p>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{A.age=b.dataset.v; next();});
+}
+
+function question(s){
+  if(s.cards){
+    app.innerHTML = `<h2>${s.q}</h2><p class="sub">${s.sub}</p>
+    <div class="gcards">${s.opts.map(o=>`<button class="gcard ${A[s.id]===o[0]?'sel':''}" data-v="${o[0]}"><span class="gav">${o[2]}</span><span class="gl">${o[1]}</span><span class="gck">✓</span></button>`).join('')}</div>
+    <p class="note">Take a slow breath. Your answer stays private and only shapes your plan.</p>`;
+    app.querySelectorAll('.gcard').forEach(b=>b.onclick=()=>{ A[s.id]=b.dataset.v; app.querySelectorAll('.gcard').forEach(x=>x.classList.remove('sel')); b.classList.add('sel','pop'); setTimeout(()=>afterAnswer(s),650); });
+    return;
+  }
+  const cur = A[s.id] || (s.multi?[]:null);
+  app.innerHTML = `<h2>${s.q}</h2>${s.sub?`<p class="sub">${s.sub}</p>`:'<div style="height:14px"></div>'}
+  <div class="opts">${s.opts.map(o=>{
+    const sel = s.multi ? cur.includes(o[0]) : cur===o[0];
+    return `<button class="opt ${sel?'sel':''}" data-v="${o[0]}"><span class="em">${o[2]}</span><span>${o[1]}</span>${s.multi?'<span class="ck">✓</span>':''}</button>`;}).join('')}
+  </div>${s.multi?`<button class="cta" id="cont" ${cur.length?'':'disabled'}>Continue</button>`:''}`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.v;
+    if(!s.multi){ A[s.id]=v; app.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); setTimeout(()=>afterAnswer(s),180); return; }
+    let arr = A[s.id]||[];
+    const exclusive = ['none','unsure'];
+    if(exclusive.includes(v)) arr = arr.includes(v)?[]:[v];
+    else { arr = arr.filter(x=>!exclusive.includes(x)); arr = arr.includes(v)?arr.filter(x=>x!==v):[...arr,v]; }
+    A[s.id]=arr; question(s);
+  });
+  const c=document.getElementById('cont'); if(c) c.onclick=()=>afterAnswer(s);
+}
+function afterAnswer(s){
+  if(s.id==='safety'){ const red=(A.safety||[]).filter(x=>x!=='none'); if(red.length) return redflag(red); }
+  next();
+}
+function redflag(red){
+  hist.push(idx);
+  document.getElementById('barw').style.visibility='hidden'; document.getElementById('stepn').textContent='';
+  const urgent = red.some(r=>['thunder','neuro','fever','vision'].includes(r));
+  app.className='fade'; void app.offsetWidth;
+  app.innerHTML = `<div class="alert">
+    <h2>${urgent?'Please get medical help first':'Please check with a doctor first'}</h2>
+    <p class="sub" style="margin:6px 0 0;color:#5a3a38">${urgent
+      ? 'Some of what you selected can be a sign of a condition that needs urgent care. If it is happening now, call <b>112</b> or <b>108</b> or go to the nearest emergency department.'
+      : 'What you selected means a doctor should review your headaches before you start any self-care programme.'}</p>
+    <ul>${red.map(r=>'<li>'+Q.find(q=>q.id==='safety').opts.find(o=>o[0]===r)[1]+'</li>').join('')}</ul>
+  </div>
+  <p class="sub" style="margin-top:16px">ClearDays focuses on food and lifestyle habits and does not diagnose or treat medical conditions. You can still see the plan, but please share it with your doctor before you start.</p>
+  <button class="cta" id="cont">I understand — continue</button>`;
+  back.classList.add('show');
+  document.getElementById('cont').onclick=()=>{ idx = Q.findIndex(q=>q.id==='goal'); render(); window.scrollTo(0,0); };
+}
+function info(s){
+  app.innerHTML = `<div class="info"><div class="big">${s.em}</div><h2>${s.t}</h2><p>${s.p}</p></div><button class="cta" id="cont">Continue</button>`;
+  document.getElementById('cont').onclick=next;
+}
+function scale(s){
+  app.innerHTML = `<h2>${s.q}</h2><div style="height:14px"></div>
+  <div class="scale">${[1,2,3,4,5].map(n=>`<button class="opt ${A[s.id]==n?'sel':''}" data-v="${n}">${n}</button>`).join('')}</div>
+  <div class="scale-l"><span>${s.lo}</span><span>${s.hi}</span></div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{A[s.id]=+b.dataset.v; b.classList.add('sel'); setTimeout(next,180);});
+}
+function loading(){
+  const steps=['Reading your migraine pattern','Checking your plate: sugar, rice, oil, tamarind, salt','Choosing natural swaps for your diet','Building your 28-day food plan'];
+  app.innerHTML = `<div class="loader"><h2>Creating your personal plan…</h2>
+   <div class="ring"><svg width="150" height="150"><circle cx="75" cy="75" r="64" stroke="#e3e7f1" stroke-width="12" fill="none"/><circle id="arc" cx="75" cy="75" r="64" stroke="url(#g)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/><defs><linearGradient id="g"><stop offset="0" stop-color="#5b4fe0"/><stop offset="1" stop-color="#22b8a6"/></linearGradient></defs></svg><b id="pct">0%</b></div>
+   <div class="lsteps">${steps.map(t=>`<div><span>✓</span>${t}</div>`).join('')}</div></div>`;
+  let p=0; const arc=document.getElementById('arc'), pct=document.getElementById('pct'), rows=app.querySelectorAll('.lsteps div');
+  const t=setInterval(()=>{ p+=2; arc.style.strokeDashoffset=402-402*p/100; pct.textContent=p+'%';
+    rows.forEach((r,i)=>{ if(p>=(i+1)*25) r.classList.add('done'); });
+    if(p>=100){ clearInterval(t); setTimeout(next,500); } },60);
+}
+function email(){
+  app.innerHTML = `<h2>Your plan is ready 🎉</h2><p class="sub">Where should we send your 28-day ClearDays food plan and daily reminders?</p>
+  <form id="f"><input type="text" id="nm" placeholder="Your first name" autocomplete="given-name"><input type="email" id="em" placeholder="Your email address" autocomplete="email" required>
+  <button class="cta" type="submit">See my plan</button></form>
+  <p class="note">🔒 We never share your email. Used only to send your plan and reminders.</p>`;
+  document.getElementById('f').onsubmit=e=>{e.preventDefault(); const em=document.getElementById('em').value.trim(); if(!/^\S+@\S+\.\S+$/.test(em)) {document.getElementById('em').focus(); return;} A.name=document.getElementById('nm').value.trim(); A.email=em; next();};
+}
+
+/* =================== PERSONAL CONTENT =================== */
+const WEEKS = [
+  {n:1, k:'sugar', icon:'🍬', title:'Sugar-free week', p:'Step away from added sugar in tea, sweets, biscuits and juices. Fruits and natural drinks take its place.'},
+  {n:2, k:'rice',  icon:'🌾', title:'From white rice to millets', p:'Move your plate from white rice to ragi, jowar, foxtail and little millets — first half and half, then fully.'},
+  {n:3, k:'oil',   icon:'🫒', title:'Less oil, no tamarind', p:'Cook by steaming, roasting and pressure-cooking. Replace tamarind with lemon, tomato, kokum and amla.'},
+  {n:4, k:'salt',  icon:'🧂', title:'Salt down, herbs up', p:'Remove pickles, papad and packaged snacks, halve the salt in cooking and flavour food with herbs and spices.'}
+];
+
+function cautions(){
+  const h=A.health||[], out=[];
+  if(h.includes('diab')) out.push('🩸 <b>You take diabetes medicine.</b> Cutting sugar and rice lowers blood sugar, so your dose may need to change. Please make these food changes with your doctor and check your sugar more often in the first weeks. Keep a fruit or glucose ready in case you feel shaky or sweaty.');
+  if(h.includes('bp')) out.push('❤️ <b>You take BP medicine.</b> Cutting salt can lower your blood pressure further. Tell your doctor about this plan and check your BP regularly.');
+  if(h.includes('lowbp')) out.push('💫 <b>You have low BP or feel dizzy.</b> Do not cut salt sharply. In Week 4, only remove pickles and packaged snacks and keep normal salt in cooking unless your doctor advises otherwise.');
+  if(h.includes('kidney')) out.push('🫘 <b>You have kidney disease.</b> Please follow this plan only with your doctor or dietitian. Some swaps (coconut water, more fruit, millets) may not suit you.');
+  if(h.includes('preg')) out.push('🤰 <b>You are pregnant or breastfeeding.</b> Your body needs extra energy. Please follow this plan only with your doctor, and skip the hot foot bath.');
+  if(A.pain==='p10') out.push('💊 You take painkillers on 10 or more days a month. That can itself keep headaches going. Please talk to your doctor, and <b>do not stop any prescribed medicine on your own</b>.');
+  return out;
+}
+
+function foodLoad(){
+  const f=[];
+  if(A.sugar!=='s0') f.push(['🍬',`<b>Sugar:</b> ${A.sugar==='s3'?'3 or more sugary items':'1–2 sugary items'} a day. Week 1 takes you to zero added sugar.`]);
+  if(A.rice!=='r1') f.push(['🍚',`<b>White rice ${A.rice==='r3'?'three':'two'} times a day.</b> Week 2 moves you to millets.`]);
+  if(A.oil!=='o0') f.push(['🫕',`<b>Fried or oily food ${A.oil==='o3'?'every day':'a few times a week'}.</b> Week 3 brings oil down to a few teaspoons a day.`]);
+  if(A.tamarind!=='t0') f.push(['🥣',`<b>Tamarind ${A.tamarind==='t3'?'every day':'a few times a week'}.</b> Week 3 replaces it with lemon, tomato, kokum and amla.`]);
+  if(A.salt!=='n0') f.push(['🫙',`<b>Salty foods ${A.salt==='n3'?'every day':'a few times a week'}.</b> Week 4 removes pickles, papad and packaged snacks.`]);
+  if((A.trig||[]).includes('meals')) f.push(['🍽️','<b>Skipped meals.</b> Your plan fixes regular meal times, because an empty stomach is a common trigger.']);
+  if(A.water!=='good') f.push(['💧','<b>Low water.</b> Your plan builds up to 8 glasses a day.']);
+  return f;
+}
+function loadScore(){ return ['sugar','rice','oil','tamarind','salt'].reduce((a,k)=>a+({s0:0,s1:1,s3:2,r1:0,r2:1,r3:2,o0:0,o1:1,o3:2,t0:0,t1:1,t3:2,n0:0,n1:1,n3:2}[A[k]]||0),0); }
+
+const isNV = ()=>A.diet==='nonveg', isEgg=()=>A.diet==='egg'||A.diet==='nonveg';
+const lowSalt = ()=> !(A.health||[]).includes('lowbp');
+
+function days(){
+  const water = A.water!=='good';
+  const D = [];
+  const add=(w,title,why,tasks)=>D.push({w,title,why,tasks});
+  // WEEK 1 — SUGAR
+  add(1,'Begin: your morning ritual','Naturopathy starts the day by gently waking up digestion.',['On waking: 1 glass of warm water with half a lemon (no sugar, no salt)','5 soaked almonds + 2 walnuts with breakfast','Write down every sugar you have today: tea, coffee, biscuits, sweets, juices','Fill today\'s entry in the Diary tab']);
+  add(1,'Halve the sugar in your tea','Going slowly stops cravings and headaches from sudden change.',['Use half your usual sugar in tea or coffee today','Try one cup of ginger, tulsi or lemongrass tea instead of regular tea','No biscuits with tea — have a few roasted chana or peanuts instead']);
+  add(1,'Swap sweet snacks for fruit','Fruit gives sweetness with fibre, water and vitamins.',['Replace one sweet or biscuit with a fruit (guava, papaya, apple, orange)','No packaged juice or soft drinks — eat the whole fruit instead','Keep a fruit bowl where you can see it']);
+  add(1,'Zero sugar in drinks','Your taste buds adjust in about a week.',['Tea and coffee with no sugar today (add cardamom or ginger for flavour)','Have tender coconut water or unsalted buttermilk in the afternoon','Drink a glass of water first whenever you feel a sweet craving']);
+  add(1,'Find the hidden sugar','Much of our sugar hides in packets.',['Read the labels of ketchup, sauces, health drinks, breakfast cereals and biscuits','Move high-sugar packets out of your kitchen','Note in your diary how you feel without sugar today']);
+  add(1,'Handle sweet cravings naturally','Cravings pass in 10–15 minutes.',['If a craving comes: water first, then 1–2 soaked dates or a small banana','10-minute walk after lunch','Sleep by 10:30 pm — tiredness makes cravings stronger']);
+  add(1,'Week 1 review','Look back to move forward.',['Count your migraine days and sugar-free days in the Diary tab','Buy millets for next week (see Grocery list in the Food tab)','Pick one sugar-free drink you enjoyed and keep it']);
+  // WEEK 2 — RICE TO MILLETS
+  add(2,'Get to know millets','Millets are whole grains with more fibre and minerals than polished rice.',['Rinse and soak your millets for 4–6 hours (overnight is best)','Cook 1 cup millet with 2½–3 cups water, like rice','Keep rice for one meal only today']);
+  add(2,'Half rice, half millet lunch','Mixing helps your family get used to the taste.',['Lunch: half white rice + half foxtail or little millet, cooked together','Add a big bowl of vegetables and dal','Eat slowly and stop when 80% full']);
+  add(2,'Millet breakfast','A steady breakfast prevents low-sugar headaches later.',['Breakfast: ragi malt (no sugar) or millet upma with vegetables','Breakfast within 1 hour of waking','Mid-morning: one fruit']);
+  add(2,'Full millet lunch','You are now replacing your main rice meal.',['Lunch: foxtail or little millet instead of rice, with dal and vegetables','Add a raw salad (cucumber, carrot, tomato, onion) with lemon','No gap longer than 4–5 hours between meals']);
+  add(2,'Balance your plate','Half the plate should be vegetables.',['Fill ½ your plate with vegetables and salad, ¼ with millet, ¼ with dal'+(isEgg()?', egg':'')+(isNV()?', fish or chicken':'')+' or sprouts','Sprouts salad as an evening snack','Write in your diary: energy level after lunch']);
+  add(2,'Millet dinner','A light, early dinner helps sleep and morning comfort.',['Dinner: jowar or ragi roti, or millet dosa, with vegetable curry','Finish dinner by 7:30–8 pm','No rice today at any meal']);
+  add(2,'Week 2 review','You have replaced your main grain.',['Count rice meals this week vs last week','Count migraine days in your diary','Choose 2 favourite millet dishes to repeat']);
+  // WEEK 3 — OIL & TAMARIND
+  add(3,'Measure your oil','Most Indian kitchens use 3–4 times more oil than we need.',['Use a teaspoon: 1 tsp cold-pressed oil (groundnut, sesame or coconut) per dish','Put away the refined oil bottle','No deep-fried food today']);
+  add(3,'Cook without frying','Steaming, roasting and pressure-cooking keep the taste and lose the oil.',['Make one dish steamed (idli-style millet, steamed vegetables) and one pressure-cooked','Dry-roast spices before adding — more aroma, less oil','Tadka with just 1 tsp oil']);
+  add(3,'Tamarind-free sambar and rasam','Tomato, lemon, kokum and amla give the same tang.',['Make sambar or rasam with tomato and add lemon juice at the end (off the flame)','Try kokum or amla in pulusu instead of tamarind','No pulihora or tamarind chutney this week']);
+  add(3,'Swap the fried snacks','Snacks are where most hidden oil comes from.',['No chips, mixture, bajji, vada or samosa today','Snack on roasted chana, dry-roasted makhana, sprouts or a fruit','Herbal tea instead of a fried evening snack']);
+  add(3,'One raw meal','Naturopathy uses raw, fresh food to lighten digestion.',['Make one meal mainly raw: salad + sprouts + fruit + a handful of nuts','Chew each bite well','Note in your diary how light you feel']);
+  add(3,'Eating out the ClearDays way','You can still eat out — choose smartly.',['Choose steamed, grilled or tandoori items; ask for less oil','Skip pulihora, fried rice and tamarind gravies','Order a salad and buttermilk with your meal']);
+  add(3,'Week 3 review','Three foods are now under control.',['Count your oil teaspoons today','Count migraine days this week','Plan your herb shopping for salt week: curry leaves, coriander, mint, ginger, pepper, cumin']);
+  // WEEK 4 — SALT
+  add(4,'Salt check','We reduce salt — we do not remove it completely. Your body needs a little, especially in the heat.',['Remove the salt shaker from the dining table','No salt on fruits, salads or curd','Note in your diary where your salt comes from']);
+  add(4,'Pickles, papad and packets out','These are the biggest salt sources in Indian homes.',['No pickles, papad, chips or packaged snacks today','Replace pickle with fresh mint-coriander chutney with lemon','Check salt (sodium) on any packet you buy']);
+  add(4, lowSalt()?'Half the salt, double the herbs':'Fresh herbs in every dish', lowSalt()?'Herbs and spices make low-salt food tasty.':'Because of your low BP, keep your normal cooking salt and just add herbs.',[lowSalt()?'Use half your usual salt in cooking today':'Keep your usual cooking salt; only skip pickles and packets','Flavour with curry leaves, coriander, mint, ginger, pepper, roasted cumin and lemon','Add salt at the end of cooking — you need less']);
+  add(4,'Naturopathy evening care','Traditional water therapy to relax head and body.',['Try a hot foot bath with a cold head pack for 15 minutes (see Natural care tab)','Early, light dinner by 7:30 pm','Lights out by 10:30 pm']);
+  add(4,'Your full ClearDays day','Put all four food swaps together.',['Follow the full sample day in the Food tab','No added sugar, no white rice, 2–3 tsp oil, no tamarind, low salt','Fill your diary']);
+  add(4,'Doctor visit preparation','Your diary is valuable information for your doctor.',['Bring your 4-week diary to your doctor','If you take medicine for diabetes or BP, ask whether your dose needs review after these food changes','Ask any questions about your headaches']);
+  add(4,'Your food rulebook — celebrate!','You have changed five foods in 28 days.',['Compare week 1 and week 4 in your diary: migraine days, strength, length','Write your 5 food rules to keep','Choose your next goal: keep going with the 3-month plan or repeat your hardest week']);
+  return D;
+}
+
+const BASICS = ()=>[
+  'Warm water with lemon on waking',
+  A.water!=='good' ? 'Water: build up to 8 glasses (add 1 glass a day)' : 'Water: 8 glasses through the day',
+  'Meals on time — never skip a meal',
+  'Wake up at the same time every day',
+  '20-minute walk',
+  'Diary entry (1 minute)'
+];
+
+const MONTHS = [
+  ['Week 5','Keep your rhythm','Repeat your best ClearDays day 5 times this week. Same wake-up time all 7 days.'],
+  ['Week 6','Millet rotation','Cook a new millet each day: ragi, jowar, bajra, foxtail, little, kodo, barnyard.'],
+  ['Week 7','Festival and travel plan','Plan swaps for weddings, festivals and trips: what to eat, what to carry, what to skip.'],
+  ['Week 8','Move more','Three 30-minute brisk walks and 10 minutes of gentle yoga on the other days.'],
+  ['Week 9','Sleep upgrade','No screens in the last hour before bed. Light dinner by 7:30 pm.'],
+  ['Week 10','Calm the mind','A 10-minute calm session every day (Natural care tab).'],
+  ['Week 11','Doctor review','Share your 10-week diary and progress chart with your doctor.'],
+  ['Week 12','Your lifelong plate','Write your final food rulebook and plan the next 3 months on your own.']
+];
+
+function result(){
+  const nm = A.name ? A.name.split(' ')[0] : '';
+  const sc = Math.max(1,Math.min(5,Math.ceil(loadScore()/2)));
+  const fl = foodLoad(), cs = cautions();
+  const red = (A.safety||[]).some(x=>x!=='none');
+  const D = days();
+  app.innerHTML = `
+  <h2>${nm?nm+', your':'Your'} ClearDays food plan is ready</h2>
+  <p class="sub">Built around your plate and your migraine pattern — one food at a time, for 28 days.</p>
+  ${red?`<div class="warnbox">⚠️ You reported a warning sign in the safety check. Please see a doctor before starting, and share this plan with them.</div>`:''}
+  ${cs.map(c=>`<div class="warnbox">${c}</div>`).join('')}
+  <div class="card"><h3>🍽️ Your food load</h3>
+    <div class="meter">${[1,2,3,4,5].map(n=>`<i class="${n<=sc?'on':''}"></i>`).join('')}</div>
+    <div class="row"><span>Light</span><span>Heavy</span></div>
+    ${fl.length?fl.map(f=>`<div class="flag"><span>${f[0]}</span><span>${f[1]}</span></div>`).join(''):'<p class="mini" style="margin-top:10px">Your plate is already quite clean. Your plan will fine-tune it and focus on meal timing.</p>'}
+  </div>
+  <div class="card"><h3>🗓️ Your 28-day food journey</h3>
+    ${WEEKS.map((w,i)=>`<div class="week ${i?'locked':''}"><div class="${i?'blur':''}"><h4>${w.icon} Week ${w.n} · ${w.title}</h4><ul>${i?D.filter(d=>d.w===w.n).slice(0,3).map(d=>`<li>${d.title}</li>`).join(''):D.filter(d=>d.w===1).map((d,j)=>`<li>Day ${j+1}: ${d.title}</li>`).join('')}</ul></div>${i===1?'<div class="lockmsg">🔒 Unlock weeks 2–4, your meal plan<br>and natural care sessions</div>':''}</div>`).join('')}
+  </div>
+  <h2 style="margin-top:22px">Choose your plan</h2>
+  <div class="plans" id="plans">
+    <div class="plan" data-p="starter"><span class="rad"></span><div><div class="pn">7-day starter</div><div class="pd">Sugar-free week + morning ritual</div></div><div class="pp"><b>₹99</b></div></div>
+    <div class="plan sel" data-p="m1"><span class="tag">MOST POPULAR</span><span class="rad"></span><div><div class="pn">28-day full plan</div><div class="pd">All 4 food weeks + meal plan + natural care</div></div><div class="pp"><s>₹799</s><b>₹399</b></div></div>
+    <div class="plan" data-p="m3"><span class="rad"></span><div><div class="pn">3-month plan</div><div class="pd">28-day plan + 8 weeks support + progress tracker</div></div><div class="pp"><s>₹1,999</s><b>₹899</b></div></div>
+  </div>
+  <button class="cta" id="buy">Get my ClearDays plan</button>
+  <p class="renew" id="renew"></p>
+  <div class="trust">
+    <div>✅ <span>Natural food swaps: millets, fruits, vegetables, sprouts, herbs</span></div>
+    <div>✅ <span>Works alongside your doctor's treatment, never instead of it</span></div>
+    <div>✅ <span>One-time payment — no auto-renewal, no hidden charges</span></div>
+    <div>✅ <span>Pay securely with UPI, cards or net banking via Razorpay</span></div>
+  </div>
+  <p class="disc">ClearDays provides food, lifestyle and naturopathy-inspired self-care education. It does not diagnose, treat or cure migraine or any other medical condition, and it is not a substitute for advice from a qualified doctor. Do not stop or change prescribed medicines without talking to your doctor. Results vary from person to person. If you have a sudden severe headache, weakness, numbness, confusion, or fever with a stiff neck, seek emergency care (112 / 108).</p>
+  <button class="cta ghost" id="restart" style="margin-top:18px">Restart quiz</button>`;
+  const txt = {starter:'₹99 one-time payment. No auto-renewal.', m1:'₹399 one-time payment. No auto-renewal.', m3:'₹899 one-time payment for 3 months. No auto-renewal.'};
+  let chosen='m1';
+  const setP = p=>{ chosen=p; app.querySelectorAll('.plan').forEach(x=>x.classList.toggle('sel',x.dataset.p===p)); document.getElementById('renew').innerHTML = txt[p]+' See our <a href="refund.html">refund policy</a>.'; };
+  app.querySelectorAll('.plan').forEach(x=>x.onclick=()=>setP(x.dataset.p));
+  setP('m1');
+  document.getElementById('buy').onclick=()=>{
+    S.set('cd_answers', A); S.set('cd_plan', chosen);
+    if(window.fbq) try{ fbq('track','InitiateCheckout',{value:{starter:99,m1:399,m3:899}[chosen],currency:'INR'}); }catch(e){}
+    const link = PAY_LINKS[chosen];
+    if(link) window.location.href = link; else document.getElementById('modal').classList.add('show');
+  };
+  document.getElementById('restart').onclick=()=>{ for(const k in A) delete A[k]; hist=[]; idx=0; render(); window.scrollTo(0,0); };
+}
+
+/* =================== AFTER PAYMENT: MEMBER DASHBOARD =================== */
+let PAID = false, DEMO = !!window.CD_DEMO || location.hash==='#demo';
+let TAB = 'today', SELDAY = null;
+const PLAN_NAME = {starter:'7-day starter', m1:'28-day full plan', m3:'3-month plan'};
+
+function plan(){ return S.get('cd_plan','m1'); }
+function startDate(){ let s=S.get('cd_start',null); if(!s){ s=Date.now(); S.set('cd_start',s);} return s; }
+function today(){ return Math.min(28, Math.max(1, Math.floor((Date.now()-startDate())/864e5)+1)); }
+function maxDay(){ return plan()==='starter' ? 7 : 28; }
+function doneMap(){ return S.get('cd_done',{}); }
+function dayDone(d){ const D=days()[d-1]; const m=doneMap()[d]||[]; return m.length>=D.tasks.length; }
+
+function dashboard(){
+  progress();
+  if(!A.freq){
+    app.innerHTML = `<div class="info"><div class="big">✅</div><h2>Payment received — thank you!</h2><p>Your Razorpay receipt is on its way to your email. We could not find your quiz answers on this device, so we will email your personal plan within 24 hours.</p><p>Questions? Visit our <a href="contact.html">contact page</a>.</p></div>`;
+    return;
+  }
+  const P = plan();
+  const tabs = [['today','Today'],['plan','My plan'],['food','Food'],['care','Natural care'],['diary','Diary']];
+  if(P==='m3') tabs.push(['progress','Progress']);
+  const nm = A.name ? A.name.split(' ')[0] : 'there';
+  app.innerHTML = `
+  ${DEMO?`<div class="demo">👀 <b>Preview mode</b> — see what each package unlocks after payment:<div class="sw">${['starter','m1','m3'].map(p=>`<button data-p="${p}" class="${P===p?'on':''}">${{starter:'₹99',m1:'₹399',m3:'₹899'}[p]} ${{starter:'Starter',m1:'28-day',m3:'3-month'}[p]}</button>`).join('')}</div></div>`:''}
+  <h2>Hi ${nm} 👋</h2>
+  <p class="sub" style="margin-bottom:12px">Your <b>${PLAN_NAME[P]}</b> is active. Bookmark this page and open it every day.</p>
+  ${cautions().map(c=>`<div class="warnbox">${c}</div>`).join('')}
+  <div class="tabs">${tabs.map(t=>`<button class="tab ${TAB===t[0]?'on':''}" data-t="${t[0]}">${t[1]}</button>`).join('')}</div>
+  <div id="pane"></div>
+  <p class="disc">ClearDays provides food, lifestyle and naturopathy-inspired self-care education. It does not diagnose, treat or cure any medical condition and is not a substitute for advice from a qualified doctor.</p>`;
+  app.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{TAB=b.dataset.t; dashboard();});
+  if(DEMO) app.querySelectorAll('.demo button').forEach(b=>b.onclick=()=>{S.set('cd_plan',b.dataset.p); if(b.dataset.p!=='m3' && TAB==='progress') TAB='today'; SELDAY=null; dashboard();});
+  const pane=document.getElementById('pane');
+  ({today:paneToday, plan:panePlan, food:paneFood, care:paneCare, diary:paneDiary, progress:paneProgress})[TAB](pane, P);
+}
+
+function upgradeCard(what){
+  return `<div class="card" style="text-align:center;background:var(--soft)"><div style="font-size:30px">🔒</div><h3 style="justify-content:center">${what}</h3><p class="mini">Included in the 28-day full plan.</p><button class="cta" id="upg" style="margin-top:12px">Upgrade to 28-day plan — ₹399</button></div>`;
+}
+function bindUpgrade(){ const u=document.getElementById('upg'); if(u) u.onclick=()=>{ if(PAY_LINKS.m1){ S.set('cd_plan_pending','m1'); location.href=PAY_LINKS.m1; } else document.getElementById('modal').classList.add('show'); }; }
+
+function dayCard(d){
+  const D = days()[d-1], W = WEEKS[D.w-1];
+  const m = doneMap()[d]||[];
+  return `<div class="theme"><small>Week ${W.n} · ${W.title}</small><h2>Day ${d}: ${D.title}</h2><p>${D.why}</p></div>
+  <div class="card"><h3>✅ Today's tasks</h3>${D.tasks.map((t,i)=>`<div class="task ${m.includes(i)?'ok':''}" data-d="${d}" data-i="${i}"><span class="bx">✓</span><span class="t">${t}</span></div>`).join('')}</div>`;
+}
+function bindTasks(){
+  app.querySelectorAll('.task[data-d]').forEach(el=>el.onclick=()=>{
+    const d=+el.dataset.d, i=+el.dataset.i, M=doneMap(); const arr=M[d]||[];
+    M[d] = arr.includes(i) ? arr.filter(x=>x!==i) : [...arr,i]; S.set('cd_done',M); dashboard();
+  });
+}
+
+function paneToday(pane, P){
+  const d = Math.min(today(), maxDay());
+  pane.innerHTML = dayCard(d) + `
+  <div class="card"><h3>🌿 Daily basics</h3>${BASICS().map(b=>`<div class="flag"><span>•</span><span>${b}</span></div>`).join('')}</div>
+  <div class="card"><h3>🆘 During a migraine attack</h3>
+    <div class="flag"><span>🌑</span><span>Rest in a dark, quiet room. Put your phone away.</span></div>
+    <div class="flag"><span>🧊</span><span>Cold pack or a cold wet cloth on the forehead or back of the neck for 15 minutes.</span></div>
+    <div class="flag"><span>💧</span><span>Sip water slowly. If you missed a meal, eat something light — a banana or a few dates.</span></div>
+    <div class="flag"><span>🌬️</span><span>Slow breathing: in for 4, out for 6 (Natural care tab).</span></div>
+    <div class="flag"><span>🚑</span><span><b>Get help (112 / 108)</b> for a sudden "worst ever" headache, weakness, numbness, confusion or fever with a stiff neck.</span></div>
+  </div>
+  ${P==='starter' ? '' : `<div class="card"><h3>⏰ Daily reminder</h3><p class="mini">We'll send today's tasks to ${A.email||'your email'} every morning.</p>
+    <label class="l">Reminder time</label><input type="time" id="rt" value="${S.get('cd_rtime','07:00')}"><button class="cta ghost" id="rs" style="margin-top:0">Save reminder</button><p class="mini" id="rmsg" style="margin-top:8px"></p></div>`}`;
+  bindTasks();
+  const rs=document.getElementById('rs'); if(rs) rs.onclick=()=>{ S.set('cd_rtime',document.getElementById('rt').value); document.getElementById('rmsg').textContent='✅ Saved. Your reminder will arrive at '+document.getElementById('rt').value+' every day.'; };
+}
+
+function panePlan(pane, P){
+  const all = days(); const mx = maxDay(); const cur = Math.min(today(), mx);
+  if(!SELDAY) SELDAY = cur;
+  pane.innerHTML = `<div class="days">${all.map((x,i)=>{const d=i+1, lk=d>mx; return `<button class="dp ${d===SELDAY?'on':''} ${!lk&&dayDone(d)?'done':''} ${lk?'lk':''}" data-d="${d}">Day<b>${lk?'🔒':d}</b></button>`;}).join('')}</div>
+  ${SELDAY>mx ? upgradeCard('Weeks 2–4: rice to millets, oil & tamarind, salt') : dayCard(SELDAY)}
+  <div class="card"><h3>🗺️ Your 4 food weeks</h3>${WEEKS.map(w=>`<div class="week" style="${w.n>1&&P==='starter'?'opacity:.5':''}"><h4>${w.icon} Week ${w.n} · ${w.title} ${w.n>1&&P==='starter'?'🔒':''}</h4><p class="mini">${w.p}</p></div>`).join('')}</div>
+  ${P==='m3' ? `<div class="card"><h3>📅 Months 2 & 3: habit support</h3>${MONTHS.map(m=>`<div class="week"><h4>${m[0]} · ${m[1]}</h4><p class="mini">${m[2]}</p></div>`).join('')}</div>`
+    : P==='m1' ? `<div class="card" style="background:var(--soft)"><h3>📅 Want to keep going after Day 28?</h3><p class="mini">The 3-month plan adds 8 weeks of habit support, a millet rotation, a festival & travel guide and a progress tracker.</p></div>` : ''}`;
+  pane.querySelectorAll('.dp').forEach(b=>b.onclick=()=>{SELDAY=+b.dataset.d; dashboard();});
+  bindTasks(); bindUpgrade();
+}
+
+function paneFood(pane, P){
+  const SW = [
+    ['🍬','Sugar in tea/coffee, sweets, biscuits, juices','Ginger/tulsi tea without sugar, whole fruits, tender coconut water, 1–2 soaked dates for cravings'],
+    ['🍚','White rice, rice dosa/idli, pulihora','Foxtail, little, kodo, barnyard millet; ragi malt; jowar/ragi roti; millet dosa'],
+    ['🫕','Refined oil, deep-fried food','1 tsp cold-pressed groundnut, sesame or coconut oil per dish; steam, roast, pressure-cook'],
+    ['🥣','Tamarind in sambar, rasam, pulusu','Tomato, lemon (added at the end), kokum, amla, raw mango in season'],
+    ['🫙','Pickles, papad, chips, extra salt','Mint-coriander-lemon chutney, curry leaves, ginger, pepper, roasted cumin; '+(lowSalt()?'half the cooking salt':'normal cooking salt (low BP)')]
+  ];
+  const prot = isNV() ? 'dal + grilled fish or chicken (no deep-fry)' : isEgg() ? 'dal + boiled egg or paneer' : 'dal + paneer, tofu or sprouts';
+  const MEAL = [
+    ['On waking','Warm water with half a lemon. 5 soaked almonds + 2 walnuts.'],
+    ['Breakfast (by 8:30)','Ragi malt with milk or buttermilk (no sugar) <i>or</i> millet upma with vegetables <i>or</i> pesarattu with mint chutney.'],
+    ['Mid-morning','One fruit — guava, papaya, apple or orange — or tender coconut water.'],
+    ['Lunch (by 1:30)','Foxtail or little millet instead of rice, '+prot+', tomato-lemon rasam (no tamarind), steamed vegetable with 1 tsp oil, raw salad, buttermilk with roasted cumin and coriander.'],
+    ['Evening','Ginger, mint or coriander-seed tea (no sugar) with roasted chana, sprouts salad or makhana.'],
+    ['Dinner (by 7:30)','Jowar or ragi roti with vegetable curry <i>or</i> millet dosa with chutney <i>or</i> vegetable soup with a small bowl of millet khichdi.']
+  ];
+  const GROC = ['Millets: ragi, jowar, foxtail, little millet, kodo','Cold-pressed groundnut, sesame or coconut oil (small bottle)','Lemons, tomatoes, kokum, amla','Moong, chana and other dals for sprouts','Seasonal fruits and plenty of vegetables','Curry leaves, coriander, mint, ginger, garlic','Pepper, cumin, cardamom, cinnamon','Almonds, walnuts, roasted chana, makhana','Herbal teas: tulsi, ginger, lemongrass'];
+  const starter = P==='starter';
+  pane.innerHTML = `
+  <div class="card"><h3>🔄 Your swap guide</h3>
+    ${SW.map((s,i)=>`<div class="swap" style="${starter&&i>0?'filter:blur(3px);user-select:none':''}"><span class="no">${s[0]} ${s[1]}</span><span>→</span><span class="yes">${s[2]}</span></div>`).join('')}
+    ${starter?'<p class="mini" style="margin-top:8px">🔒 Rice, oil, tamarind and salt swaps unlock with the 28-day plan.</p>':''}
+  </div>
+  ${starter ? upgradeCard('Full sample day, millet meal plan & grocery list') : `
+  <div class="card"><h3>🍽️ Your sample ClearDays day</h3>${MEAL.map(m=>`<div class="meal"><b>${m[0]}</b>${m[1]}</div>`).join('')}</div>
+  <div class="card"><h3>🛒 Grocery list</h3>${GROC.map(g=>`<div class="flag"><span>☐</span><span>${g}</span></div>`).join('')}</div>`}
+  ${P==='m3' ? `<div class="card"><h3>🌾 Millet rotation (Months 2–3)</h3>${[['Mon','Ragi','Ragi malt, ragi roti'],['Tue','Foxtail','Foxtail millet lunch, upma'],['Wed','Jowar','Jowar roti, jowar dosa'],['Thu','Little millet','Little millet pongal (low oil)'],['Fri','Kodo','Kodo millet khichdi'],['Sat','Bajra','Bajra roti with vegetables'],['Sun','Barnyard','Barnyard millet lemon rice (no tamarind)']].map(r=>`<div class="meal"><b>${r[0]} · ${r[1]}</b>${r[2]}</div>`).join('')}</div>
+  <div class="card"><h3>🎉 Festivals, weddings & travel</h3>
+    <div class="flag"><span>🍬</span><span>At functions, take a small piece of sweet only once, after a full meal — never on an empty stomach.</span></div>
+    <div class="flag"><span>🎒</span><span>Carry fruit, roasted chana and a water bottle when you travel.</span></div>
+    <div class="flag"><span>🍛</span><span>At buffets: salad first, then dal and vegetables, then a small portion of rice if there is no millet.</span></div>
+    <div class="flag"><span>⏰</span><span>Keep your meal and sleep times as close to normal as you can.</span></div>
+  </div>` : ''}`;
+  bindUpgrade();
+}
+
+let pacerT=null;
+function paneCare(pane, P){
+  const starter = P==='starter';
+  pane.innerHTML = `
+  <div class="card" style="text-align:center"><h3 style="justify-content:center">🌬️ Calm breathing</h3><p class="mini">Breathe in as the circle grows, out as it shrinks. 5 minutes.</p>
+    <div class="pacer" id="pc">Start</div><p id="pct2" style="font-weight:700;margin-top:6px"></p>
+    <button class="cta ghost" id="pb" style="margin-top:8px">Start 5-minute session</button></div>
+  ${starter ? upgradeCard('Hot foot bath, cold head pack, eye pack & gentle yoga') : `
+  <div class="card"><h3>💧 Hot foot bath + cold head pack</h3>
+    <p class="mini" style="margin-bottom:8px">A traditional naturopathy practice to relax the head. 15 minutes, in the evening.</p>
+    <div class="flag"><span>1</span><span>Fill a bucket with warm water up to your ankles. Test it with your elbow — warm, never hot.</span></div>
+    <div class="flag"><span>2</span><span>Wrap a cloth soaked in cold water around your forehead and head.</span></div>
+    <div class="flag"><span>3</span><span>Sit with your feet in the water for 10–15 minutes. Sip a glass of water.</span></div>
+    <div class="flag"><span>4</span><span>Finish by splashing cold water on your feet. Dry them and rest.</span></div>
+    <div class="warnbox" style="margin:10px 0 0">⚠️ Skip the hot foot bath if you have diabetes with numb feet, varicose veins, very low BP or are pregnant.</div>
+  </div>
+  <div class="card"><h3>👁️ Cool eye pack</h3><p class="mini">For screen-tired eyes and the start of a headache: a cold wet cotton pad or cloth over closed eyes for 10 minutes, lying down in a dim room.</p></div>
+  <div class="card"><h3>🧘 Gentle yoga (10 minutes)</h3>
+    <div class="flag"><span>•</span><span>Slow neck rolls and shoulder shrugs — 1 minute</span></div>
+    <div class="flag"><span>•</span><span>Anulom vilom (alternate-nostril breathing), slow and gentle — 3 minutes</span></div>
+    <div class="flag"><span>•</span><span>Balasana (child's pose) — 2 minutes</span></div>
+    <div class="flag"><span>•</span><span>Shavasana with slow breathing — 4 minutes</span></div>
+    <p class="mini" style="margin-top:6px">Avoid head-down poses and strong breathing practices during a migraine.</p>
+  </div>
+  <div class="card"><h3>☀️ Natural daily rhythm</h3>
+    <div class="flag"><span>🌅</span><span>10 minutes of early-morning sunlight (before 9 am), but avoid harsh midday sun.</span></div>
+    <div class="flag"><span>🌙</span><span>Light dinner by 7:30 pm, lights out by 10:30 pm.</span></div>
+  </div>`}`;
+  bindUpgrade();
+  const pb=document.getElementById('pb'), pc=document.getElementById('pc'), lab=document.getElementById('pct2');
+  pb.onclick=()=>{
+    if(pacerT){ clearInterval(pacerT); pacerT=null; pb.textContent='Start 5-minute session'; pc.textContent='Start'; pc.style.transform='scale(.55)'; lab.textContent=''; return; }
+    let left=300, phase=0; pb.textContent='Stop';
+    const step=()=>{ phase=1-phase; if(phase){ pc.style.transition='transform 4s ease-in-out'; pc.style.transform='scale(1)'; pc.textContent='Breathe in'; } else { pc.style.transition='transform 6s ease-in-out'; pc.style.transform='scale(.55)'; pc.textContent='Breathe out'; } };
+    step(); let sinceSwitch=0;
+    pacerT=setInterval(()=>{ left--; sinceSwitch++; lab.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0');
+      if((phase&&sinceSwitch>=4)||(!phase&&sinceSwitch>=6)){ sinceSwitch=0; step(); }
+      if(left<=0){ clearInterval(pacerT); pacerT=null; pc.textContent='Well done 🌿'; pc.style.transform='scale(.8)'; pb.textContent='Start again'; } },1000);
+  };
+}
+
+function paneDiary(pane, P){
+  const E = S.get('cd_diary',[]);
+  const td = new Date().toISOString().slice(0,10);
+  pane.innerHTML = `<div class="card"><h3>📝 Today's entry</h3>
+    <label class="l">Date</label><input type="date" id="dd" value="${td}">
+    <label class="l">Did you have a migraine?</label><select id="dm"><option value="0">No</option><option value="1">Yes</option></select>
+    <div id="dmx" style="display:none"><label class="l">Pain (0–10)</label><input type="number" id="dp" min="0" max="10" value="5"><label class="l">How many hours?</label><input type="number" id="dh" min="0" max="72" value="4"></div>
+    <label class="l">Did you follow your food plan today?</label><select id="df"><option value="yes">Yes, fully</option><option value="part">Partly</option><option value="no">No</option></select>
+    <label class="l">Notes (what you ate, sleep, stress)</label><textarea id="dn" rows="2" placeholder="e.g. Had sweets at a function, slept late"></textarea>
+    <button class="cta" id="dsave" style="margin-top:4px">Save entry</button></div>
+  <div class="card"><h3>📖 Past entries</h3>${E.length?E.slice().reverse().slice(0,14).map(e=>`<div class="flag"><span>${e.m?'🌧️':'🌤️'}</span><span><b>${e.d}</b> · ${e.m?`Migraine, pain ${e.p}/10, ${e.h}h`:'No migraine'} · Food plan: ${({yes:'✅',part:'🟡',no:'❌'})[e.f]}${e.n?`<br><span class="mini">${e.n.replace(/</g,'&lt;')}</span>`:''}</span></div>`).join(''):'<p class="mini">No entries yet. One minute a day is all it takes.</p>'}</div>`;
+  const dm=document.getElementById('dm'); dm.onchange=()=>document.getElementById('dmx').style.display=dm.value==='1'?'block':'none';
+  document.getElementById('dsave').onclick=()=>{
+    const e={d:document.getElementById('dd').value, m:dm.value==='1', p:+document.getElementById('dp').value, h:+document.getElementById('dh').value, f:document.getElementById('df').value, n:document.getElementById('dn').value.trim()};
+    const all=S.get('cd_diary',[]).filter(x=>x.d!==e.d); all.push(e); all.sort((a,b)=>a.d<b.d?-1:1); S.set('cd_diary',all); dashboard();
+  };
+}
+
+function paneProgress(pane){
+  const E=S.get('cd_diary',[]);
+  const start = E.length ? new Date(E[0].d) : new Date();
+  const wk = {};
+  E.forEach(e=>{ const w=Math.floor((new Date(e.d)-start)/(7*864e5))+1; wk[w]=wk[w]||{m:0,f:0,n:0}; wk[w].n++; if(e.m) wk[w].m++; if(e.f==='yes') wk[w].f++; });
+  const ws=Object.keys(wk).map(Number).sort((a,b)=>a-b).slice(-12);
+  const mx=Math.max(1,...ws.map(w=>wk[w].m));
+  const first=ws.length?wk[ws[0]].m:0, last=ws.length?wk[ws[ws.length-1]].m:0;
+  const ffDays=E.filter(e=>e.f==='yes').length;
+  pane.innerHTML = `<div class="card"><h3>📉 Migraine days per week</h3>
+    ${ws.length?`<div class="bars">${ws.map(w=>`<div><i style="height:${wk[w].m/mx*95+3}px"></i>W${w}<br><b style="color:var(--ink)">${wk[w].m}</b></div>`).join('')}</div>`:'<p class="mini">Add diary entries to see your chart.</p>'}
+    ${ws.length>1?`<p class="mini" style="margin-top:10px">Week ${ws[0]}: <b>${first}</b> migraine days → Week ${ws[ws.length-1]}: <b>${last}</b>.</p>`:''}
+  </div>
+  <div class="card"><h3>🥗 Food plan streak</h3><p style="font-size:30px;font-weight:800">${ffDays} <span style="font-size:15px;color:var(--muted);font-weight:600">days fully on plan</span></p><p class="mini">out of ${E.length} days logged</p></div>
+  <div class="card"><h3>📤 Share with your doctor</h3><p class="mini">Take a screenshot of this page and your Diary tab to your next appointment.</p></div>`;
+}
+
+/* ---------- boot ---------- */
+if(location.hash==='#thank-you' || DEMO){
+  PAID = true;
+  const saved = S.get('cd_answers', null);
+  if(saved) Object.assign(A, saved);
+  if(DEMO && !A.freq){
+    Object.assign(A,{age:'30-39',gender:'female',freq:'weekly',dur:'mid',sev:'mod',diet:'veg',rice:'r3',sugar:'s3',oil:'o1',tamarind:'t3',salt:'n1',trig:['meals','stress','sleep'],sleep:'5to6',water:'midw',stresslvl:4,pain:'p5',health:['none'],safety:['none'],goal:'fewer',time:'t15',name:'Lakshmi',email:'lakshmi@example.com'});
+    if(!S.get('cd_plan',null)) S.set('cd_plan','m1');
+    S.set('cd_start', Date.now()-4*864e5);
+    if(!S.get('cd_diary',null)){
+      const base=Date.now()-34*864e5, ent=[]; const pat=[1,0,0,1,0,1,0, 1,0,0,0,1,0,0, 0,1,0,0,0,0,1, 0,0,0,1,0,0,0, 0,0,0,0,1,0];
+      pat.forEach((m,i)=>ent.push({d:new Date(base+i*864e5).toISOString().slice(0,10), m:!!m, p:m?6-Math.floor(i/10):0, h:m?Math.max(2,8-Math.floor(i/6)):0, f:i<7?'part':(i%5===0?'part':'yes'), n:''}));
+      S.set('cd_diary',ent);
+    }
+    S.set('cd_done',{1:[0,1,2,3],2:[0,1,2],3:[0,1,2],4:[0,1],5:[]});
+  }
+  const pend = S.get('cd_plan_pending', null); if(pend && !DEMO){ S.set('cd_plan', pend); S.set('cd_plan_pending', null); }
+  idx = Q.findIndex(q=>q.id==='result');
+  if(!DEMO && window.fbq) try{ fbq('track','Purchase',{value:{starter:99,m1:399,m3:899}[plan()],currency:'INR'}); }catch(e){}
+}
+render();
+</script>
+</body>
+</html>
